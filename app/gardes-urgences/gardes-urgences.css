@@ -1,0 +1,126 @@
+.section-guards {
+    margin-top: 50px;
+  }
+  
+  .section-guards h1 {
+    font-size: 3rem;
+    text-align: left;
+    margin-left: 50px;
+  }
+  
+  .presentation-guards{
+    display: flex;
+    align-items: center;
+  }
+  
+  .intro-guards {
+    width: 50%;
+    text-align: left;
+    line-height: 2;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+  }
+  
+  .container-pros-guards h2 {
+    padding: 50px 0 50px 0;
+  }
+  
+  .guards-container {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  /* Styles for pharmacies, dentists and doctors component */ 
+  .pharmacies, .dentists, .doctors {
+    display: flex;
+    gap: 60px;
+    text-align: center; 
+    justify-content: center;
+  }
+  
+  .bloc {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    flex-wrap: wrap;
+    gap: 35px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    align-items: center;
+  }
+  
+  .bloc h3 {
+    font-size: 1.6rem;
+  }
+  
+  .bloc a {
+    color: var(--color-font);
+    font-size: 1.5rem;
+  }
+  
+  .pict-pharmacies, .pict-dentists, .pict-doctors {
+    width: 200px;
+  }
+  
+  /* Styles for both tablets and mobile views */
+  @media screen and (max-width: 1024px) {
+    .intro-guards {
+      width: 100%;
+      text-align: center; 
+    }
+    .section-guards h1 {
+      font-size: 2.3rem;
+      text-align: center;
+      padding-bottom: 30px;
+      margin: 0;
+    }
+    .section-guards h2 {
+      font-size: 1.6rem; 
+      margin: 40px auto;
+    }
+    .presentation-guards{
+      flex-direction: column;
+      width: 80%;
+      margin: auto;
+    }
+    .pharmacies, .dentists, .doctors {
+      flex-direction: column;
+      margin: auto;
+      width: 80%;
+      padding: 0px;
+    }
+    .guards-container {
+      background: white;
+    }
+    .bloc {
+      width: 100%;
+    }
+    .container-pros-guards {
+      width: 100%;
+    }
+    .container-pros-guards h2 {
+      color: var(--green-color); 
+      text-align: center;
+      padding: 0;
+      margin: 30px auto;
+    }
+  }
+  
+  /* mobile views */
+  @media (max-width: 767px) {
+    .section-guards {
+      text-align: center;
+    }
+    .section-guards h1 {
+      width: 98%;
+    }
+  }
+  
+  
+    
+  

@@ -1,0 +1,105 @@
+.login-form {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    width: 500px;
+    height: 450px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    margin: auto;
+  }
+  
+  .container-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container-login h1 {
+    margin-top: 20px;
+    margin-bottom: 70px;
+    font-size: 3rem;
+    text-align: center;
+  }
+  
+  .container-login label {
+    font-family: var(--common-font);
+  }
+  
+  .container-login input {
+    width: 100%;
+    border: none;
+    margin: auto; 
+  }
+  
+  .icon-login {
+    color: var(--color-font);
+    font-size: 1.3rem;
+  }
+  
+  .area-input-login {
+    display: flex;
+    gap: 1vh;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 25px;
+    height: 60px;
+  }
+  
+  .login-button {
+    text-decoration: none;
+    border: 0;
+    background-color: var(--dark-green-color);
+    color: white;
+    border-radius: 7px;
+    transition: all 0.3s ease-in-out;
+    font-family: var(--common-font);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 15px;
+    width: 185px;
+  }
+    
+  .login-button:hover {
+    background-color: var(--green-color); 
+  }
+  
+  .captcha {
+    margin: 30px auto;
+  }
+  
+  .forgot-password a {
+    text-align: center;
+    color: var(--dark-green-color);
+  }
+  
+  .forgot-password {
+    margin-top: 30px;
+  }
+  
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px white inset !important; /* Changer la couleur de fond */
+      -webkit-text-fill-color: #000 !important; /* Changer la couleur du texte */
+      transition: background-color 5000s ease-in-out 0s !important; /* Empêcher le changement de couleur rapide */
+  }
+  
+  /* Styles for both tablets and mobile views */
+  @media screen and (max-width: 1024px) {
+    .container-login input {
+      width: 50vw; 
+    }
+  }
+  
+  /* Styles for mobile */
+  @media (max-width: 767px) {
+    .login-form {
+      width: 350px;
+    }
+  }
+  
+  

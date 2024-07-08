@@ -1,0 +1,161 @@
+.admin-form {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.container-form {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+}
+
+.form-admin {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  width: 700px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding: 40px;
+  height: auto;
+  font-family: var(--common-font);
+  text-align: left;
+}
+
+.form-admin input {
+  width: 100%;
+  height: 50px;
+  border: none;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding-left: 5px;
+}
+
+.select-admin-form {
+  height: 40px;
+  font-family: var(--common-font);
+  background-color: white;
+  border: none;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding-left: 15px;
+}
+
+/* Element required in forms */
+.required-p {
+  font-size: 14px;
+}
+
+.required-asterisk {
+  color: #cb381f;
+  font-size: 16px;
+  font-weight: bold; 
+  font-family: var(--common-font);
+}
+
+.form-container {
+  text-align: center;
+  margin-top: 30px; 
+}
+
+.form-container h1 {
+  margin-bottom: 15px;
+  font-size: 3rem;
+}
+
+/*form register*/
+.form-register {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-register h1 {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.div-password {
+  width: 100%;
+  display: flex;
+  align-items: center; 
+}
+
+.div-password button {
+  width: 50px;
+  background-color: var(--color-font);
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  margin: 15px auto;
+  height: 50px;
+}
+
+.eye-icon {
+  font-size: 1.2rem;
+}
+
+.view-password {
+  width: 35px;
+  margin: 0;
+}
+
+.content-password {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  margin-top: 15px;
+}
+
+/* Buttons in admin forms */ 
+.register-button, .add-pro-button, .add-hours-button, .edit-pro-button, .edit-hours-button, .add-external-pro-button, .add-external-pro-button, .add-information-button, .edit-information-button, .add-new-button {
+  text-decoration: none;
+  width: auto;
+  padding: 15px;
+  border: 0;
+  background-color: var(--dark-green-color);
+  color: white;
+  border-radius: 7px;
+  transition: all 0.3s ease-in-out;
+  font-family: var(--common-font);
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.register-button:hover, .add-pro-button:hover, .add-hours-button:hover, .edit-pro-button:hover, .edit-hours-button:hover, .add-external-pro-button:hover, .add-external-pro-button:hover, .add-information-button:hover, .edit-information-button:hover, .add-new-button:hover {
+  background-color: var(--green-color); 
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important; /* Changer la couleur de fond */
+  -webkit-text-fill-color: #000 !important; /* Changer la couleur du texte */
+  transition: background-color 5000s ease-in-out 0s !important; /* Empêcher le changement de couleur rapide */
+}
+
+/* Styles for both tablets and mobile views */
+@media screen and (max-width: 1024px) {
+  .container-form {
+    width: 80%;
+  }
+  .form-admin {
+    height: auto;
+  }
+  .form-container h1 {
+    font-size: 2.3rem;
+  }
+  .container-form-add-hours {
+    width: 50%;
+  }
+  .select-admin-form {
+    width: 100%;
+  }
+}
+
+

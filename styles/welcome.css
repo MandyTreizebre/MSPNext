@@ -1,0 +1,106 @@
+.container-welcome {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-presentation {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 80px;
+  text-align: justify; 
+  margin-left: 40px;
+}
+
+.section-presentation h1 {
+  font-size: 4.3rem;
+  text-align: left;
+}
+
+.section-presentation p {
+  line-height: 2.2;
+  width: 95%;
+}
+
+.container-img {
+  width: 45%;
+  display: flex;
+  align-items: center;
+}
+
+#img-welcome {
+  width: 100%;
+  height: auto;
+}
+
+.welcome-button {
+  position: relative;
+  text-decoration: none;
+  width: auto;
+  padding: 15px 30px 15px 30px;
+  border: 0;
+  background-color: var(--dark-green-color);
+  color: white;
+  border-radius: 15px;
+  transition: background-color 0.3s ease-in-out;
+  font-family: var(--common-font);
+  font-size: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.welcome-button::before {
+  content: "\003E"; 
+  position: absolute;
+  opacity: 0;
+  right: 20%; 
+  top: 50%; 
+  transform: translateY(-50%);
+  transition: right 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.welcome-button:hover {
+  background-color: var(--green-color);
+}
+
+.welcome-button:hover::before {
+  right: 10px; 
+  opacity: 1;
+}
+
+/* Styles for both tablets and mobile views */
+@media screen and (max-width: 1024px) {
+  .container-welcome {
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    gap: 0;
+  }
+
+  .section-presentation {
+    width: 80vw; 
+  }
+
+  .section-presentation h1 {
+    font-size: 2.3rem;
+    text-align: center;
+  }
+
+  #img-right {
+    display: none; 
+  }
+
+  .section-presentation p {
+    text-align: center;
+    line-height: 2; 
+  } 
+}
+
+/* mobile views */
+@media (max-width: 767px) {
+  .section-presentation {
+    width: 90vw; 
+  }
+}

@@ -1,0 +1,73 @@
+.container-spe {
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #92a69a;
+  border-radius: 0 20vw 0 20vw;
+  box-shadow: 0 25px 30px rgba(0,0,0,0.16), 0 3px 10px rgba(0,0,0,0.23);
+  padding-top: 35px;
+  position: relative;
+}
+
+.container-spe h2 {
+  font-size: 2rem;
+  color: white;
+}
+
+.section-spe {
+  display: flex;
+  width: 70%;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 50px auto;
+}
+
+.cards-spe {
+  flex: 1 1 calc(30% - 2rem);
+  min-width: 200px;
+  max-width: 300px;
+  min-height: 100px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 0 0 15px 0;
+  border-radius: 15px; 
+  background-color: white; 
+}
+
+.cards-spe a {
+  text-decoration: none;
+  color: var(--green-color); 
+  font-size: 1.1rem;
+}
+
+.cards-spe p {
+  font-size: calc(0.8em + 0.1vw);
+  word-wrap: break-word; 
+  padding-top: 15px;
+  color: var(--dark-green-color);
+}
+
+.cards-spe:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); 
+}
+
+.img-spe {
+  width: 100%;
+  min-height: 150px;
+  max-height: 200px;
+  border-radius: 15px 15px 0 0; 
+}
+
+
+/* Styles for both tablets and mobile views */
+@media screen and (max-width: 1024px) {
+  .section-spe {
+    width: 80%;
+  }
+  .container-spe h2 {
+    font-size: 1.6rem; 
+  }
+}
+

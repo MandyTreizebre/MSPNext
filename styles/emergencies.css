@@ -1,0 +1,92 @@
+.container-emergencies {
+    display: flex;
+    margin: 150px auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1vw;
+    background-image: url("/images/background-urgences.png");
+    background-repeat: no-repeat;
+    background-size: 130%;
+    background-position: center;
+    min-height: 100vh;
+  }
+  
+  .section-emergencies {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    background-color: white;
+    height: 480px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 3px 10px rgba(0,0,0,0.23);
+  }
+  
+  .section-emergencies h2 {
+    font-size: 2rem;
+  }
+  
+  .section-emergencies h3 {
+    font-size: 1.5rem;
+  }
+  
+  .section-emergencies p {
+    padding: 15px;
+    line-height: 2;
+  }
+  
+  .emergencies-button {
+    position: relative;
+    text-decoration: none;
+    width: auto;
+    padding: 15px 30px 15px 30px;
+    border: 0;
+    background-color: var(--dark-green-color);
+    color: white;
+    border-radius: 15px;
+    transition: background-color 0.3s ease-in-out;
+    font-family: var(--common-font);
+    font-size: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .emergencies-button::before {
+    content: "\003E"; 
+    position: absolute;
+    opacity: 0;
+    right: 20%; 
+    top: 50%; 
+    transform: translateY(-50%);
+    transition: right 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+  
+  .emergencies-button:hover {
+    background-color: var(--green-color);
+  }
+  
+  .emergencies-button:hover::before {
+    right: 10px; 
+    opacity: 1;
+  }
+    
+  /* Styles for both tablets and mobile views */
+  @media screen and (max-width: 1024px) {
+    .container-emergencies {
+      width: 100%;
+      flex-wrap: wrap;
+      margin: 100px auto;
+    }
+  
+    
+  }
+  
+  /* Styles for mobile */
+  @media (max-width: 767px) {
+  
+  }
+  

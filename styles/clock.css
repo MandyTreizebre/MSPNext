@@ -1,0 +1,89 @@
+.App {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50vh;
+    width: 40vw;
+    flex-direction: column;
+    margin-bottom: 200px;
+  }
+  
+.clock {
+    font-size: 2rem;
+    font-family: "Arial", sans-serif;
+    letter-spacing: 4px;
+    animation: colorChange 5s infinite;
+}
+  
+  @keyframes colorChange {
+    0%,
+    100% {
+      color: black;
+    }
+  }
+  
+.analog-clock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    scale: 2;
+
+}
+  
+.hand {
+    position: absolute;
+    transform-origin: center;
+    background-color: var(--green-color);
+    transition: transform 0.5s cubic-bezier(0.4, 2.05, 0.2, 1);
+}
+  
+.hour-hand {
+    width: 2px;
+    height: 30px;
+}
+  
+.minute-hand {
+    width: 2px;
+    height: 50px;
+}
+  
+.second-hand {
+    width: 1px;
+    height: 30px;
+    background-color: #ff0000;
+}
+  
+.analog-clock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+  
+.clock-circle {
+    position: relative;
+    width: 80px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.clock-number {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    color: var(--green-color);
+    font-weight: bold;
+    user-select: none;
+}
+
+@media screen and (max-width: 1024px) {
+ .App {
+  display: none;
+ }
+}

@@ -1,0 +1,86 @@
+.section-professionals-admin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.container-professionals-admin {
+  width: 100%;
+}
+
+.box-professional {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-overflow: ellipsis;
+  width: 98%;
+  height: 70px;
+  max-height: 300px;
+  border-bottom: 1px solid rgb(225, 225, 225);
+}
+
+.box-professional h4 {
+  color: var(--color-font);
+  font-size: 1.1rem;
+  margin-left: 60px;
+  width: 50%;
+  overflow: hidden;
+}
+
+.actions-professionals {
+  display: flex;
+  gap: 1vw;
+  text-align: left;
+  align-items: center;
+}
+
+.actions-professionals a {
+  color: var(--color-font);
+}
+
+.actions-professionals a:hover {
+  color: var(--dark-green-color);
+}
+
+.actions-professionals button {
+  text-decoration: none;
+  padding: 10px;
+  border: 0;
+  background-color: #92a69a;
+  color: white;
+  border-radius: 7px;
+  transition: all 0.3s ease-in-out;
+  font-family: var(--common-font);
+  font-size: 1rem;
+  cursor: pointer;
+}
+  
+.actions-professionals button:hover {
+  background-color: #10403bae; 
+}
+
+.icon-admin {
+  margin-right: 10px;
+  color: #055431;
+  font-size: 1.3rem;
+}
+
+/************styles for tablets and mobiles that share the same style*************/
+@media screen and (max-width: 1024px) {
+  .container-professionals {
+    flex-direction: column;
+    gap: 3vh; }
+  .column-pro {
+    width: 40vw; } }
+
+/* Styles specific to mobile devices */
+@media (max-width: 767px) {
+  /* Adjusting font sizes for the news box's heading and paragraph */
+  .container-professionals {
+    width: 90%; }
+  .column-pro {
+    width: 100%; } }
