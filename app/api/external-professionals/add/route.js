@@ -64,8 +64,8 @@ async function handler(req) {
 }
 
 export const POST = withAuth(handler) 
-export const config = {
+/*export const config = {
     api: {
         bodyParser: false
     }
-} 
+} */
