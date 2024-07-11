@@ -83,10 +83,3 @@ export const PUT = withAuth(async (req, res) => {
         return NextResponse.json({ message: 'Erreur interne du serveur' }, { status: 500 }) 
     }
 }) 
-
-const config = {
-    api: {
-      bodyParser: false,
-      responseLimit: '1mb'
-    }
-}
