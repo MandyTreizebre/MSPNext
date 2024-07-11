@@ -72,8 +72,9 @@ async function handler(req, { params }) {
 }
 
 export const PUT = withAuth(handler)  
-/*export const config = {
+const config = {
     api: {
-        bodyParser: false
+      bodyParser: false,
+      responseLimit: '1mb'
     }
-}  */
+}

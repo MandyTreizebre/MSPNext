@@ -84,8 +84,9 @@ export const PUT = withAuth(async (req, res) => {
     }
 }) 
 
-/*export const config = {
+const config = {
     api: {
-        bodyParser: false
+      bodyParser: false,
+      responseLimit: '1mb'
     }
-} */
+}
