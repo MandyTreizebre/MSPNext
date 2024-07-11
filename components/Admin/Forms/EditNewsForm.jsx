@@ -1,75 +1,72 @@
 import { useState } from "react" 
+import "@/styles/admin-forms.css"  
 
 const EditNewsForm = (props) => {
-    // États pour les messages d'erreur de validation
     const [errors, setErrors] = useState({
         title: "",
         details: "",
         externalLink: "",
         picture: ""
-    }) 
+    })  
 
-    // Gestionnaire de changement de valeur pour les champs du formulaire
     const handleInputChange = (setter) => (e) => {
-        setter(e.currentTarget.value) 
-    } 
+        setter(e.currentTarget.value)  
+    }  
 
     const maxFileSize = 5 * 1024 * 1024  // 5MB
 
-    // Fonction de gestion du changement d'image
     const handleImageChange = (e) => {
-        const file = e.target.files[0] 
+        const file = e.target.files[0]  
         if (file) {
-            const validTypes = ['image/jpeg', 'image/jpg', 'image/png'] 
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png']  
             if (!validTypes.includes(file.type)) {
                 setErrors(prevErrors => ({
                     ...prevErrors,
                     picture: "Erreur de format d'image, JPEG, JPG et PNG autorisés"
-                })) 
+                }))  
             } else if (file.size > maxFileSize) {
                 setErrors(prevErrors => ({
                     ...prevErrors,
                     picture: "La taille du fichier dépasse la limite de 5MB"
-                })) 
+                }))  
             } else {
-                props.onChangePicture(file) 
+                props.onChangePicture(file)  
                 setErrors(prevErrors => ({
                     ...prevErrors,
                     picture: ""
-                })) 
+                }))  
             }
         }
-    } 
+    }  
 
-    // Fonction de validation du formulaire
     const validateForm = () => {
-        let errorsForm = { ...errors } 
+        let errorsForm = { ...errors }  
 
         if (!props.title || props.title.length > 50) {
-            errorsForm.title = "Titre invalide" 
+            errorsForm.title = "Titre invalide"  
         }
 
-        if (!props.details || props.details.length > 200) {
-            errorsForm.details = "Détails invalides" 
+        if (!props.details || props.details.length > 500) {
+            errorsForm.details = "Détails invalides"  
         }
 
         if (!props.externalLink || props.externalLink.length > 150) {
-            errorsForm.externalLink = "Lien invalide" 
+            errorsForm.externalLink = "Lien invalide"  
         }
 
-        setErrors(errorsForm) 
+        setErrors(errorsForm)  
 
-        return !Object.values(errorsForm).some(error => error !== "") 
-    } 
+        return !Object.values(errorsForm).some(error => error !== "")  
+    }  
 
     return (
         <section className="container-form">
             <form 
                 className="form-admin"
                 onSubmit={(e) => {
-                    e.preventDefault() 
+                    e.preventDefault()  
                     if (validateForm()) {
-                        props.handleSubmit() 
+                        props.handleSubmit()  
                     }
                 }}
             >
@@ -89,7 +86,7 @@ const EditNewsForm = (props) => {
                     name="details"
                     value={props.details}
                     onChange={handleInputChange(props.onChangeDetails)}
-                    maxLength={200}
+                    maxLength={500}
                 />
                 {errors.details && <p className="error-message">{errors.details}</p>}
 
@@ -115,7 +112,7 @@ const EditNewsForm = (props) => {
                 <button className="add-new-button">Valider la modification du professionnel</button>
             </form>
         </section>
-    ) 
-} 
+    )  
+}  
 
 export default EditNewsForm 

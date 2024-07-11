@@ -1,11 +1,13 @@
 'use client'
-import { makeStore } from "@/slices/store";
-import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { Provider } from "react-redux";
-import { useRef } from "react";
-import DarkMode from "@/components/DarkMode";
+import { makeStore } from "@/slices/store" 
+import "./globals.css" 
+import Header from "@/components/Header" 
+import Footer from "@/components/Footer" 
+import { Provider } from "react-redux"
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor } from '@/slices/store'
+import { useRef } from "react" 
+import DarkMode from "@/components/DarkMode" 
 
 export default function RootLayout({ children }) {
   const storeRef = useRef()
@@ -13,17 +15,19 @@ export default function RootLayout({ children }) {
     storeRef.current = makeStore()
   }
   return (
-    <Provider store={storeRef.current}>
-      <DarkMode />
-      <html lang="fr">
-        <body>
-          <Header />
-          <main>
-            {children}
-          </main>
-          <Footer />
-        </body>
-      </html>
-    </Provider>
-  );
+    <html lang="fr">
+      <body>
+        <Provider store={storeRef.current}>
+          <PersistGate loading={null} persistor={persistor}>
+            <DarkMode />
+            <Header />
+            <main>
+              {children}
+            </main>
+            <Footer />
+          </PersistGate>
+        </Provider>
+      </body>
+    </html>
+  ) 
 }

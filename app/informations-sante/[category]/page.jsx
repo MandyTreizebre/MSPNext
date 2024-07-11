@@ -1,10 +1,10 @@
 'use client'
 import { useParams } from "next/navigation"
+import axios from 'axios'
 import { useState, useEffect } from "react"
-import { getInformationsByCategory } from "@/api/HealthInformations"
 import InformationsContainer from "../../../components/InformationsContainer"
 
-const InformationsByCategory = () => {
+export default function InformationsByCategory() {
 
     const {category} = useParams()
     const [categoryData, setCategoryData] = useState(null)
@@ -12,11 +12,9 @@ const InformationsByCategory = () => {
 
     useEffect(() => {
         if (category) { 
-            console.log("Fetching data for category:", category)
-            getInformationsByCategory(category)
+            axios.get(`/api/informations/${category}`)
                 .then(res => {
-                    console.log("res.data.result dans getInformationsBYCategory", res.data.result)
-                    setCategoryData(res.data.result)
+                    setCategoryData(res.data)
                 })
                 .catch(err => {
                     console.error("Error fetching data:", err)
@@ -25,7 +23,6 @@ const InformationsByCategory = () => {
         }
     }, [category])
 
-    console.log("categoryData dans InformationsBYCategory", categoryData)
 
     if (error) {
         return <div className="error-message">{error}</div>
@@ -42,4 +39,3 @@ const InformationsByCategory = () => {
     )
 }
 
-export default InformationsByCategory

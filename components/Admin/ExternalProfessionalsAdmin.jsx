@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useState } from "react" 
 import Cookies from 'js-cookie' 
-import { deleteExternalPro } from '../../api/ExternalProfessionals' 
+import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons' 
 import Modal from "../Modal" 
@@ -20,7 +20,11 @@ const ExternalProfessionalsAdmin = ({ externalProfessionals, setExternalProfessi
   // Fonction pour supprimer un professionnel externe
   const onClickDeleteExtPro = (id) => {
     const token = Cookies.get('token') 
-    deleteExternalPro(id, token)
+    axios.delete(`/api/external-professionals/delete/${id}`, { 
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((res) => {
         if (res.status === 200) {
           setOpenDeleteExternalProModal(true) 
@@ -42,10 +46,10 @@ const ExternalProfessionalsAdmin = ({ externalProfessionals, setExternalProfessi
         <div key={extPro.id} className='bloc-external-pro'>
           <h4>{extPro.name}</h4>
           <div className='actions-admin'>
-            {/*<Link to={`/editer/professionnel-externe/${extPro.id}`}>
+            <Link href={`/admin/professionnels-externes/editer/${extPro.id}`}>
               <FontAwesomeIcon icon={faPenToSquare} className="icon-admin" />
               Modifier le professionnel
-            </Link>*/}
+            </Link>
             <button onClick={() => onClickDeleteExtPro(extPro.id)}>
               Supprimer le professionnel
             </button>

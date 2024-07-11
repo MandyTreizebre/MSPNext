@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import Cookies from 'js-cookie'
 const token = Cookies.get('token')
-import { addPharmaciesOnCallAPI, displayAllPharmaciesOnCallAPI, addSchedulesPharmaciesOnCallAPI } from "@/api/Pharmacie"
+import axios from 'axios'
 import AddPharmaciesOnCallForm from "@/components/Admin/Forms/AddPharmaciesOnCallForm"
 import AddSchedulesForPharmaciesOnCallForm from "@/components/Admin/Forms/AddSchedulesForPharmaciesOnCallForm"
 import Modal from "@/components/Modal"
@@ -33,9 +33,10 @@ export default function AddPharmaciesOnCallAndSchedules() {
 
     const displayAllPharmaciesOnCall = () => {
         setError(null) 
-        displayAllPharmaciesOnCallAPI()
+        axios.get('/api/pharmacies-on-call')
             .then((res) => {
-                setPharmaciesOnCall(res.data.result) 
+                console.log("res.data", res.data)
+                setPharmaciesOnCall(res.data) 
             })
             .catch((err) => {
                 setError("Erreur lors de la récupération des pharmacies de gardes", err) 
@@ -47,7 +48,12 @@ export default function AddPharmaciesOnCallAndSchedules() {
     }, []) 
 
     const savePharmacies = (datas, token) => {
-        addPharmaciesOnCallAPI(datas, token)
+        axios.post('/api/pharmacies-on-call/add', datas, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
         .then((res)=> {
             if (res.status === 201) {
                 setName("")
@@ -83,13 +89,16 @@ export default function AddPharmaciesOnCallAndSchedules() {
             phone: phone
         }
 
-        console.log("data to send =>", formData)
-
         savePharmacies(formData, token)
     }
 
     const saveSchedulesPharmaciesOnCall = (datas, token) => {
-        addSchedulesPharmaciesOnCallAPI(datas, token)
+        axios.post('/api/pharmacies-on-call/schedules/add', datas, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
             .then((res) => {
                 if (res.status === 201) {
                     setSelectedPharmacy(null) 
@@ -115,8 +124,6 @@ export default function AddPharmaciesOnCallAndSchedules() {
             start_time: startTime,
             end_time: endTime
         } 
-
-        console.log("data to send =>", formData) 
 
         saveSchedulesPharmaciesOnCall(formData, token) 
     } 

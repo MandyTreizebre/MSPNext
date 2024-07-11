@@ -8,8 +8,11 @@ import News from "../components/componentsHome/News"
 import Specializations from "../components/componentsHome/Specializations"
 import ExternalPros from "../components/componentsHome/ExternalPros"
 import "./home.css"
+import { useSelector } from 'react-redux'
+import { selectAdmin } from '@/slices/adminSlice'
 
 export default function Home() {
+    const admin = useSelector(selectAdmin);
 
     const refScrollToTop = useRef(null)
 

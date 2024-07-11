@@ -1,7 +1,8 @@
+
 import Link from 'next/link'
 import { useState } from 'react' 
 import Cookies from 'js-cookie' 
-import { deleteInformation } from '../../api/HealthInformations' 
+import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons' 
 import Modal from "../Modal" 
@@ -20,7 +21,11 @@ const HealthInformationsAdmin = ({ healthInformations, setHealthInformations }) 
     // Fonction pour supprimer une information de santé
     const onClickDeleteInformation = (id) => {
         const token = Cookies.get('token') 
-        deleteInformation(id, token)
+        axios.delete(`/api/informations/delete/${id}`, { 
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
             .then((res) => {
                 if (res.status === 200) {
                     setOpenDeleteInformationModal(true) 
@@ -32,7 +37,6 @@ const HealthInformationsAdmin = ({ healthInformations, setHealthInformations }) 
                 }
             })
             .catch((error) => {
-                console.log(error) 
                 setError("Problème lors de la suppression de l'information", error) 
             }) 
     } 
@@ -45,12 +49,12 @@ const HealthInformationsAdmin = ({ healthInformations, setHealthInformations }) 
                     <p>{info.description}</p>
                     <p><strong>Lien:</strong> {info.link}</p>
                     <div className='actions-informations'>
-                        {/*<Link to={`/modifier/information/${info.id}`}>
+                       <Link href={`/admin/informations-sante/editer/${info.id}`}>
                             <FontAwesomeIcon icon={faPenToSquare} className="icon-admin" />
-                            Modifier l&apos information
-                        </Link>*/}
+                            Modifier l&apos; information
+                        </Link>
                         <button onClick={() => onClickDeleteInformation(info.id)}>
-                            Supprimer l&apos information
+                            Supprimer l&apos; information
                         </button>
                     </div>
                 </div>

@@ -1,12 +1,9 @@
 'use client'
+import axios from 'axios'
 import { useState, useEffect } from 'react' 
 import Link from 'next/link' 
 import Image from "next/image"
 import { useSelector } from 'react-redux' 
-import { displayAllProfessionals, changeStatusProfessionnal } from '../../api/Professionals' 
-import { displayExternalProfessionals } from '../../api/ExternalProfessionals' 
-import { displayAllInformations } from '../../api/HealthInformations' 
-import { displayAllNews } from '../../api/News' 
 import { selectAdmin } from '../../slices/adminSlice' 
 import ProfessionalsAdmin from '../../components/Admin/ProfessionalsAdmin' 
 import ExternalProfessionalsAdmin from '../../components/Admin/ExternalProfessionalsAdmin' 
@@ -35,10 +32,9 @@ export default function Admin() {
     //Afficher les professionnels de santé
     const displayPros = () => {
         setError(null) 
-        displayAllProfessionals()
+        axios.get('/api/professionals-and-hours')
             .then((res) => {
-                setProfessionals(res.data.result)
-                setNumProfessionals(res.data.result.length)
+                setProfessionals(res.data)
             })
             .catch((err) => {
                 setError('Une erreur est survenue lors du chargement des professionnels', err) 
@@ -46,17 +42,16 @@ export default function Admin() {
     } 
 
     useEffect(() => {
-        displayPros() 
+        displayPros()
     }, []) 
 
 
     //Afficher les professionnels externes
     const displayExternalPros = () => {
         setError(null) 
-        displayExternalProfessionals()
+        axios.get('/api/external-professionals')
             .then((res) => {
-                setExternalProfessionals(res.data.result)
-                setNumExternalProfessionals(res.data.result.length)
+                setExternalProfessionals(res.data)
             })
             .catch((err) => {
                 setError('Une erreur est survenue lors du chargement des professionnels externes', err) 
@@ -64,16 +59,15 @@ export default function Admin() {
     } 
 
     useEffect(() => {
-        displayExternalPros() 
+        displayExternalPros()
     }, []) 
 
     //Afficher les informations 
     const displayHealthInformations = () => {
         setError(null) 
-        displayAllInformations()
+        axios.get('/api/informations')
             .then((res) => {
-                setHealthInformations(res.data.result)
-                setNumInformations(res.data.result.length)
+                setHealthInformations(res.data)
             })
             .catch((err) => {
                 setError('Une erreur est survenue lors du chargement des informations santé', err) 
@@ -81,18 +75,18 @@ export default function Admin() {
     } 
 
     useEffect(() => {
-        displayHealthInformations() 
+        displayHealthInformations()
     }, []) 
 
     //Afficher les actualités 
     const displayNews = () => {
         setError(null) 
-        displayAllNews()
+        axios.get('/api/news')
         .then((res) => {
-            setNews(res.data.result)
-            setNumNews(res.data.result.length)
+            setNews(res.data)
         })
         .catch((err) => {
+
             setError('Une erreur est survenue lors du chargement des actualités', err) 
         }) 
     } 
@@ -104,7 +98,12 @@ export default function Admin() {
     //Fonction pour modifier le statut des professionnels 
     const handleChangeStatus = (id, token) => {
         setError(null) 
-        changeStatusProfessionnal(id, token)
+        axios.put(`/api/professionals-status/${id}`, {}, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
             .then(() => {
                 displayPros() 
                 setProfessionals((prevProfs) =>
@@ -128,7 +127,7 @@ export default function Admin() {
                 <section className='admin-panel'>
                     {admin.infos && <h1>Vous êtes connecté(e) en tant que {admin.infos.firstname}.</h1>}
 
-                        <Link href="/admin/gardes-pharmacies">Page des pharmacies</Link>
+                        <Link href="/admin/gardes-pharmacies">Page des pharmacies de garde </Link>
 
                     <div className='menu-admin-panel'>
                         <div className='card-menu' onClick={() => scrollToSection('professionals')}>

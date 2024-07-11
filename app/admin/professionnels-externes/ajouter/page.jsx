@@ -1,12 +1,12 @@
 'use client'
 import { useState} from "react"
+import axios from 'axios'
 import Cookies from 'js-cookie'
 const token = Cookies.get('token')
-import { addExternalProfessional } from "../../../../api/ExternalProfessionals"
-import AddExternalProForm from "../../../../components/Admin/Forms/AddExternalProForm"
-import Modal from "../../../../components/Modal"
+import AddExternalProForm from "@/components/Admin/Forms/AddExternalProForm"
+import Modal from "@/components/Modal"
 
-export default function AddExternalPro() {
+const AddExternalPros = () => {
 
 	const [name, setName] = useState("")
 	const [link, setLink] = useState("")
@@ -19,7 +19,12 @@ export default function AddExternalPro() {
 	}
 
 	const saveExternalPro = (datas, token) => {
-		addExternalProfessional(datas, token)
+        axios.post('/api/external-professionals/add', datas, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
 			.then((res)=> {
 				if(res.status === 201) {
 					setName("")
@@ -84,3 +89,5 @@ export default function AddExternalPro() {
 		</>
 	)
 }
+
+export default AddExternalPros

@@ -1,23 +1,21 @@
 'use client'
+import { useParams } from 'next/navigation'
 import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
-import { getProfessionalBySpe } from "@/api/Professionals"
+import axios from 'axios'
 import ProfessionalsContainer from "@/components/ProfessionalsContainer"
 import "./professionals.css"
 import Image from "next/image"
 
-
-
 export default function HealthProfessionals () {
 
+    const { speciality_id } = useParams()
     const [professionals, setProfessionals] = useState([])
     const [error, setError] = useState(null)
-    const { speciality_id } = useParams()
 
     useEffect(() => {
-        getProfessionalBySpe(speciality_id)
+        axios.get(`/api/professionals/${speciality_id}`)
         .then((res) => {
-            setProfessionals(res.data.result)
+            setProfessionals(res.data)
         })
         .catch(err => {
             setError("Echec lors du changement des professionnels", err)

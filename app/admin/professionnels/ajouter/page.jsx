@@ -1,8 +1,8 @@
 'use client'
 import {useState, useEffect} from "react"
 import Cookies from 'js-cookie'
+import axios from 'axios'
 const token = Cookies.get('token')
-import { saveOneProfessional, displaySpecializations } from "../../../../api/Professionals"
 import AddProForm from "../../../../components/Admin/Forms/AddProForm"
 import Modal from "../../../../components/Modal"
 
@@ -26,9 +26,9 @@ export default function AddPro () {
     }
     
     useEffect(()=> {
-        displaySpecializations()
+        axios.get('/api/specializations')
         .then((res)=>{
-            setSpecializations(res.data.result)
+            setSpecializations(res.data)
         })
         .catch(err => {
             setError(err, "Erreur lors du chargement des spécialisations")
@@ -36,7 +36,12 @@ export default function AddPro () {
     }, [])
 
     const savePro = (datas, token) => {
-        saveOneProfessional(datas, token)
+        axios.post('/api/professionals/add', datas, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
         .then((res)=>{
             if (res.status === 201){
                 setLastname("")

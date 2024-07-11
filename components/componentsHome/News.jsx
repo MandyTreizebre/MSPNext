@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react' 
 import { config } from "@/config"
+import axios from "axios"
 import Link from 'next/link'
 import Image from 'next/image'
 import Carousel from 'react-multi-carousel' 
-import { displayAllNews } from '../../api/News' 
 import 'react-multi-carousel/lib/styles.css' 
-import "../../styles/news.css" 
+import "@/styles/news.css" 
 
 const News = () => {
     const [news, setNews] = useState([]) 
@@ -13,9 +13,9 @@ const News = () => {
     const [loading, setLoading] = useState(true) 
 
     useEffect(() => {
-        displayAllNews()
+        axios.get('/api/news')
             .then((res) => {
-                setNews(res.data.result) 
+                setNews(res.data) 
                 setLoading(false) 
             })
             .catch(err => {
@@ -85,7 +85,7 @@ const News = () => {
                         {news.map((item, index) => (
                             <div key={item.id || index}>
                                 <section className="box-news">
-                                    <Image src={config.pict_url + item.picture} className='img-news' alt={item.title} width={500} height={500}/>
+                                    <Image src={config.pict_url+item.picture} className='img-news' alt={item.title} width={500} height={500}/>
                                     <h3>{item.title}</h3>
                                     <p>{item.details}</p>
                                     <Link href={item.external_link} 

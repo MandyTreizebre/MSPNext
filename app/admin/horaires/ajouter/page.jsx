@@ -1,14 +1,11 @@
 'use client'
-import {useState, useEffect} from "react"
+import { useState, useEffect } from "react"
 import Cookies from 'js-cookie'
-const token = Cookies.get('token')
+import axios from 'axios'
 import AddHoursForm from "../../../../components/Admin/Forms/AddHoursForm"
 import Modal from "../../../../components/Modal"
-import { displayDays, saveOpeningHours } from "../../../../api/OpeningHours"
-import { displayProfessionals } from "../../../../api/Professionals"
 
 export default function AddHoursPro() {
-
     const [professional, setProfessional] = useState([])
     const [selectedPro, setSelectedPro] = useState("")
     const [day, setDay] = useState([])
@@ -25,27 +22,32 @@ export default function AddHoursPro() {
     }
 
     useEffect(() => {
-        displayDays()
+        axios.get('/api/days')
             .then((res) => {
-                setDay(res.data.result)
+                setDay(res.data)
             })
             .catch(err => {
                 setError("Echec du chargement des jours", err)
-            }, [])
-    
-        displayProfessionals()
+            })
+
+        axios.get('/api/professionals')
             .then((res) => {
-                setProfessional(res.data.result)
+                setProfessional(res.data)
             })
             .catch(err => {
                 setError("Échec du chargement des professionnels.", err)
             })
-        }, [])
+    }, [])
 
     const saveHours = (datas, token) => {
-        saveOpeningHours(datas, token)
-            .then((res)=> {
-                if(res.status === 201){
+        axios.post('/api/schedules/add', datas, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }, 
+            withCredentials: true
+        })
+            .then((res) => {
+                if (res.status === 201) {
                     setHStartMorning("") 
                     setHEndMorning("") 
                     setHStartAfternoon("") 
@@ -53,58 +55,29 @@ export default function AddHoursPro() {
                     setSelectedDay(null)
 
                     setOpenAddHoursModal(true)
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         handleCloseModal()
                     }, 5000)
                 } 
             })
-            .catch(err=>{
-                if (err.message === "Professionnel invalide") {
-                    setError(err.message)
-                }
-            
-                if (err.message === "Jour invalide") {
-                    setError(err.message)
-                }
-
-                if (err.message === "Heure de début du matin invalide") {
-                    setError(err.message)
-                }
-
-                if (err.message === "Heure de fin du matin invalide") {
-                    setError(err.message)
-                }
-
-                if (err.message === "Heure de début de l'après-midi invalide") {
-                    setError(err.message)
-                }
-
-                if (err.message === "Heure de fin de l'après-midi invalide") {
-                    setError(err.message)
-                }
-
-                if (err.message === "Des horaires existent déjà pour ce jour et ce professionnel.") {
-                    setError(err.message)
-                }
-
-                if (err.message === "") {
-                    setError("Une erreur est survenue", err)
-                }
+            .catch(err => {
+                setError(err.response.data.msg || "Une erreur est survenue")
             })
     }
 
     const handleSubmitHours = () => {
         setError(null)
 
-        let datas = {
+        const datas = {
             pro_id: selectedPro,
             day_id: selectedDay,
-            h_start_morning: h_start_morning,
-            h_end_morning: h_end_morning, 
-            h_start_afternoon: h_start_afternoon,
-            h_end_afternoon: h_end_afternoon
+            h_start_morning,
+            h_end_morning,
+            h_start_afternoon,
+            h_end_afternoon
         }
-        saveHours(datas, token)
+
+        saveHours(datas, Cookies.get('token'))
     }
 
     return (
@@ -119,7 +92,6 @@ export default function AddHoursPro() {
                 h_end_morning={h_end_morning}
                 h_start_afternoon={h_start_afternoon}
                 h_end_afternoon={h_end_afternoon}
-                
                 onChangePro={setSelectedPro}
                 onChangeDay={setSelectedDay}
                 onChangeHStartMorning={setHStartMorning}

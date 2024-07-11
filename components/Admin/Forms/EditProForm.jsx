@@ -2,7 +2,6 @@ import { useState } from "react"
 import "@/styles/admin-forms.css" 
 
 const EditProForm = (props) => {
-    // États pour les messages d'erreur de validation
     const [errors, setErrors] = useState({
         lastname: "",
         firstname: "",
@@ -13,7 +12,6 @@ const EditProForm = (props) => {
         details: ""
     }) 
 
-    // Fonction pour gérer les changements de valeur des champs du formulaire
     const handleInputChange = (setter) => (e) => {
         const { value, name } = e.currentTarget 
         const finalValue = name === 'specializations' ? parseInt(value, 10) : value 
@@ -21,19 +19,15 @@ const EditProForm = (props) => {
         setErrors(prev => ({ ...prev, [name]: "" })) 
     } 
 
-    // Fonction de validation du formulaire
     const validateForm = () => {
         let errorsForm = {} 
-        // Valider chaque champ et ajouter un message d'erreur si nécessaire
         if (!props.lastname || props.lastname.length > 100) errorsForm.lastname = "Nom invalide" 
         if (!props.firstname || props.firstname.length > 50) errorsForm.firstname = "Prénom invalide" 
         if (!props.address || props.address.length > 50) errorsForm.address = "Adresse invalide" 
         if (!props.zip || props.zip.length > 5) errorsForm.zip = "Code postal invalide" 
         if (!props.city || props.city.length > 50) errorsForm.city = "Ville invalide" 
         if (!props.phone || props.phone.length > 10) errorsForm.phone = "Téléphone invalide" 
-        // Mettre à jour l'état des erreurs avec les problèmes identifiés
         setErrors(errorsForm) 
-        // Retourner true si aucune erreur, sinon retourner false
         return Object.keys(errorsForm).length === 0 
     } 
 
@@ -117,7 +111,6 @@ const EditProForm = (props) => {
                 {errors.details && <p className="error-message">{errors.details}</p>}
 
                 <label htmlFor="specializations">Spécialisation</label>
-                {/* Menu déroulant de sélection de la spécialisation */}
                 <select
                     name="specializations"
                     value={props.selectedSpecialization}
@@ -128,7 +121,6 @@ const EditProForm = (props) => {
                         <option key={spe.id} value={spe.id}>{spe.name_spe}</option>
                     ))}
                 </select>
-                {/* Bouton de soumission */}
                 <button className="edit-pro-button">Valider la modification du professionnel</button>
             </form>
         </section>

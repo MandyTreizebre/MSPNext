@@ -3,7 +3,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useState } from 'react' 
 import { useRouter } from 'next/navigation'
-import { logout } from '@/api/Admin' 
+import axios from 'axios'
+import Cookies from 'js-cookie'
+const token = Cookies.get('token')
 import { useSelector, useDispatch } from 'react-redux' 
 import { selectAdmin, logoutAdmin } from '../slices/adminSlice' 
 import { toggleDarkMode, selectIsDarkMode } from "../slices/darkModeSlice" 
@@ -23,7 +25,12 @@ const Header = () => {
     const pathname = typeof window === "undefined" ? "" : location.pathname
 
     const handleLogout = () => {
-        logout()
+        axios.get('/api/admin/logout', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
             .then(response => {
                 if (response.status === 200) {
                     dispatch(logoutAdmin())

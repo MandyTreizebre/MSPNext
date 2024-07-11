@@ -5,11 +5,11 @@ const nextConfig = {
           {
             protocol: 'http',
             hostname: 'localhost',
-            port: '9000',
+            port: '3000',
             pathname: '/**',
           },
         ],
       },
 };
 
-export default nextConfig;
+export default nextConfig

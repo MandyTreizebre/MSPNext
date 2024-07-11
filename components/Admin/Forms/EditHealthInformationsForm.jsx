@@ -116,8 +116,8 @@ const EditHealthInformationsForm = (props) => {
                 <label htmlFor="categories">Catégories</label>
                 <select
                     name="categories"
-                    value={props.selectedCategories}
-                    onChange={handleInputChange(props.onChangeCategories)}
+                    value={props.selectedCategory}
+                    onChange={handleInputChange(props.onChangeCategory)}
                     required
                     className="select-admin-form"
                 >
@@ -127,7 +127,7 @@ const EditHealthInformationsForm = (props) => {
                     ))}
                 </select>
 
-                <button className="edit-information-button">Modifier l&apos information</button>
+                <button className="edit-information-button">Modifier l&apos; information</button>
             </form>
         </section>
     ) 

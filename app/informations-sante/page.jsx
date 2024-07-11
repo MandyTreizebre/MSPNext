@@ -1,8 +1,8 @@
 'use client'
 import {useState, useEffect} from "react"
 import Link from "next/link"
-import { displayCategories } from "@/api/HealthInformations"
 import { config } from "@/config"
+import axios from 'axios'
 import "./categories-informations.css"
 
 export default function CategoriesInformations() {
@@ -11,9 +11,9 @@ export default function CategoriesInformations() {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        displayCategories()
+        axios.get('/api/categories-informations')
         .then((res) => {
-             setCategories( res.data.result )
+             setCategories(res.data)
         })
         .catch(err => {
             setError("Une erreur s’est produite lors de la récupération des catégories.", err)

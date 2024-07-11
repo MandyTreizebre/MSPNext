@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import axios from 'axios'
 import { useState } from "react" 
 import Cookies from 'js-cookie' 
-import { deleteNew } from '../../api/News' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons' 
 import Modal from "../Modal" 
@@ -20,7 +20,11 @@ const NewsAdmin = ({ news, setNews }) => {
     // Fonction pour supprimer une actualité
     const onClickDeleteNew = (id) => {
         const token = Cookies.get('token') 
-        deleteNew(id, token)
+        axios.delete(`/api/news/delete/${id}`, { 
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
             .then((res) => {
                 if (res.status === 200) {
                     setOpenDeleteNewModal(true) 
@@ -32,7 +36,6 @@ const NewsAdmin = ({ news, setNews }) => {
                 }
             })
             .catch((error) => {
-                console.log(error) 
                 setError("Problème lors de la suppression de l'actualité", error) 
             }) 
     } 
@@ -45,12 +48,12 @@ const NewsAdmin = ({ news, setNews }) => {
                     <p>{item.details}</p>
                     <p><strong>Lien:</strong> {item.external_link}</p>
                     <div className='actions-news'>
-                        {/*<Link to={`/modifier/actualite/${item.id}`}>
+                        <Link href={`/admin/actualites/editer/${item.id}`}>
                             <FontAwesomeIcon icon={faPenToSquare} className="icon-admin" />
                             Modifier l&apos actualité
-                        </Link>*/}
+                        </Link>
                         <button onClick={() => onClickDeleteNew(item.id)}>
-                            Supprimer l&apos actualité
+                            Supprimer l&apos; actualité
                         </button>
                     </div>
                 </div>

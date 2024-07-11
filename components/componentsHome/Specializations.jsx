@@ -1,8 +1,9 @@
 import {useState, useEffect, useRef} from "react"
 import Link from 'next/link'
+import Image from 'next/image'
+import axios from 'axios'
 import { config } from "@/config"
-import {displaySpecializations} from '../../api/Professionals'
-import "../../styles/specializations.css"
+import "@/styles/specializations.css"
 
 const Specializations = () => {
 
@@ -11,12 +12,11 @@ const Specializations = () => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        displaySpecializations()
+        axios.get('/api/specializations')
         .then((res) => {
-            setSpecializations(res.data.result) 
+            setSpecializations(res.data)
         })
         .catch(err => {
-        console.log("err dans la récupération des spécialisations", err)
            setError("Une erreur s’est produite lors de la récupération des spécialisations.", err)
         })
     }, []) 
@@ -32,7 +32,7 @@ const Specializations = () => {
                             <Link href={`professionnels/${spe.id}`} 
                                   aria-label={`Visiter la page des ${spe.name_spe}`}
                             >
-                                <img src={config.pict_url+spe.picture} className="img-spe" alt={spe.name_spe}/>
+                                <Image src={config.pict_url+spe.picture} className="img-spe" alt={spe.name_spe} width={300} height={300}/>
                                 <p>{spe.name_spe}</p>
                             </Link>
                         </div>

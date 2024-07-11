@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux' 
 import Link from 'next/link'
-import { loginAdmin } from '../../api/Admin' 
+import axios from 'axios'
 import { connectAdmin } from '../../slices/adminSlice' 
 import "./login.css"
 import ReCAPTCHA from "react-google-recaptcha"
@@ -31,34 +31,39 @@ export default function Login() {
     const onSubmitForm = (e) => {
         e.preventDefault() 
         setError(null)
-
+    
         if (!captachaValue) {
             alert("Veuillez remplir le CAPTCHA")
             return
         }
-
+    
         if (!validateEmail(email)) {
             setError("Adresse e-mail invalide")
             return
         }
-
-        loginAdmin({ email, password })
+    
+        axios.post('/api/admin/login', { email, password }, { withCredentials: true })
             .then((res) => {
                 if (res.status === 200) {
                     let newAdmin = res.data.admin
+                    if (!newAdmin) {
+                        setError("Réponse du serveur incorrecte")
+                        return
+                    }
                     newAdmin.token = res.data.token
                     dispatch(connectAdmin(newAdmin))
                     router.push('/admin')
                 } 
             })
             .catch((err) => {
-                if (err.message === "Identification échouée : email ou mot de passe incorrect") {
-                    setError(err.message)
+                if (err.response && err.response.status === 400) {
+                    setError("Identification échouée : email ou mot de passe incorrect")
                 } else {
                     setError("Une erreur est survenue")
                 }
             }) 
-    } 
+    }
+    
 
     return (
         <section className='container-login'>

@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react"
-import Link from 'next/link' 
-import { displayAllPharmaciesOnCallAPI } from "@/api/Pharmacie"
+import Link from 'next/link'
+import axios from 'axios'
 
 export default function PagePharmaciesOnCall() {
 
@@ -11,9 +11,10 @@ export default function PagePharmaciesOnCall() {
     //Récupération pour affichage de toutes les pharmacies de gardes enregistrées 
     const displayAllPharmaciesOnCall = () => {
         setError(null)
-        displayAllPharmaciesOnCallAPI()
+        axios.get('/api/pharmacies-on-call')
             .then((res)=> {
-                setPharmaciesOnCall(res.data.result)
+                console.log("data reçue de pharmacies-on-call/schedules =>", res.data)
+                setPharmaciesOnCall(res.data)
             })
             .catch((err) => {
                 setError("Erreur lors de la récupération des pharmacies de gardes", err)
@@ -22,7 +23,7 @@ export default function PagePharmaciesOnCall() {
 
     useEffect(() => {
         displayAllPharmaciesOnCall()
-    })
+    }, [])
 
     return (
         <>

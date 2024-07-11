@@ -1,60 +1,61 @@
-import { useState } from "react" 
+import { useState } from "react";
+import "@/styles/admin-forms.css";
 
 const AddSchedulesForPharmaciesOnCallForm = (props) => {
     const [errors, setErrors] = useState({
         name: "",
         address: "",
         phone: "",
-    }) 
+    });
 
     const handleInputChange = (setter) => (e) => {
-        setter(e.currentTarget.value) 
-    } 
+        setter(e.currentTarget.value);
+    };
 
     const validateForm = () => {
-        let errorsForm = { ...errors } 
+        let errorsForm = { ...errors };
 
         if (!props.date) {
-            errorsForm.date = "Date invalide" 
+            errorsForm.date = "Date invalide";
         }
 
         if (!props.startTime) {
-            errorsForm.startTime = "Heure de début invalide" 
+            errorsForm.startTime = "Heure de début invalide";
         }
 
         if (!props.endTime) {
-            errorsForm.endTime = "Heure de fin invalide" 
+            errorsForm.endTime = "Heure de fin invalide";
         }
 
-        setErrors(errorsForm) 
+        setErrors(errorsForm);
 
-        return !Object.values(errorsForm).some((error) => error !== "") 
-    } 
+        return !Object.values(errorsForm).some((error) => error !== "");
+    };
 
     return (
         <section className="container-form">
             <form
                 className="form-admin"
                 onSubmit={(e) => {
-                    e.preventDefault() 
+                    e.preventDefault();
                     if (validateForm()) {
-                        props.handleSubmit() 
+                        props.handleSubmit();
                     }
                 }}
             >
                 <label htmlFor="pharmacy">Pharmacie</label>
-                {props.pharmacies.map((pharmacy) => (
-                    <div key={pharmacy.id}>
-                        <input
-                            type="radio"
-                            name="pharmacy"
-                            value={pharmacy.id}
-                            checked={props.selectedPharmacy === pharmacy.id}
-                            onChange={() => props.onChangePharmacy(pharmacy.id)}
-                        />
-                        {pharmacy.name}
-                    </div>
-                ))}
+                <div>
+                    <select
+                        name="pharmacy"
+                        value={props.selectedPharmacy}
+                        onChange={(e) => props.onChangePharmacy(e.target.value)}
+                    >
+                        <option value="">Sélectionnez une pharmacie</option>
+                        {props.pharmacies.map(pharmacy => (
+                            <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}</option>
+                        ))}
+                    </select>
+                </div>
                 {errors.pharmacy && <p className="error-message">{errors.pharmacy}</p>}
 
                 <label htmlFor="date">Date</label>
@@ -90,7 +91,7 @@ const AddSchedulesForPharmaciesOnCallForm = (props) => {
                 <button className="add-schedule-button">Ajouter la garde</button>
             </form>
         </section>
-    ) 
-} 
+    );
+};
 
-export default AddSchedulesForPharmaciesOnCallForm 
+export default AddSchedulesForPharmaciesOnCallForm;

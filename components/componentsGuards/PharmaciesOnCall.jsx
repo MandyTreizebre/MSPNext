@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react" 
-import { displayPharmaciesAndSchedules } from "@/api/Pharmacie" 
+'use client'
+import { useState, useEffect } from "react"
+import axios from 'axios'
 import PharmaciesOnCallForGuards from "./PharmaciesOnCallForGuards" 
 
 const PharmaciesOnCall = () => {
@@ -24,10 +25,10 @@ const PharmaciesOnCall = () => {
     const currentDate = getCurrentDate() 
 
     useEffect(() => {
-        displayPharmaciesAndSchedules()
+        axios.get('/api/pharmacies-on-call/schedules')
             .then((res) => {
                 const onCallPharmacies = [] 
-                res.data.result.forEach((pharmacy) => {
+                res.data.forEach((pharmacy) => {
                     const startTimeHHMM = pharmacy.start_time.substring(0, 5) 
                     const endTimeHHMM = pharmacy.end_time.substring(0, 5) 
                     const pharmacyDate = new Date(pharmacy.date)

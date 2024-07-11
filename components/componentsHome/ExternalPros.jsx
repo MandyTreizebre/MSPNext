@@ -1,7 +1,7 @@
 import {useState, useEffect } from "react"
+import axios from "axios"
 import { config } from "@/config"
 import Link from 'next/link'
-import { displayExternalProfessionals } from "@/api/ExternalProfessionals"
 import "../../styles/externalPros.css"
 
 const ExternalPros = () => {
@@ -10,9 +10,9 @@ const ExternalPros = () => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        displayExternalProfessionals()
+        axios.get('/api/external-professionals')
         .then((res) => {
-            setExternalPros(res.data.result)
+            setExternalPros(res.data)
         })
         .catch(err => {
             setError("Une erreur s’est produite lors de la récupération des professionnels externes.", err)

@@ -44,14 +44,14 @@ const ProfessionalsAdmin = ({ professionals, onChangeStatus }) => {
                     <div className="box-professional">
                         <h4> <FontAwesomeIcon icon={faUser} className="icon-admin" />{key}</h4>
                         <div className='actions-professionals'>
-                            {/*<Link to={`/editer/professionnel/${groupedProfessionals[key].coordinates.id}`}>
+                            <Link href={`/admin/professionnels/editer/${groupedProfessionals[key].coordinates.id}`}>
                                 <FontAwesomeIcon icon={faPenToSquare} className="icon-admin" />
                                 Modifier le professionnel
                             </Link>
-                            <Link to={`/editer/horaires-professionnel/${groupedProfessionals[key].coordinates.id}`}>
+                            <Link href={`/admin/horaires/editer/${groupedProfessionals[key].coordinates.id}`}>
                                 <FontAwesomeIcon icon={faPenToSquare} className="icon-admin" />
                                 Modifier les horaires du professionnel
-                            </Link>*/}
+                            </Link>
                             <button onClick={() => { onChangeStatus(groupedProfessionals[key].coordinates.id) }}>
                                 {groupedProfessionals[key].coordinates.isActive ? "Désactiver" : "Activer"}
                             </button>

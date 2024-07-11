@@ -2,7 +2,7 @@
 import { useState } from "react"
 import Cookies from 'js-cookie'
 const token = Cookies.get('token')
-import { addNew } from "@/api/News"
+import axios from "axios"
 import AddNewsForm from "@/components/Admin/Forms/AddNewsForm"
 import Modal from "@/components/Modal"
 
@@ -20,7 +20,12 @@ export default function AddNews() {
     }
 
     const saveNew = (datas, token) => {
-        addNew(datas, token)
+        axios.post('/api/news/add', datas, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
             .then((res)=> {
                 if(res.status === 201) {
                     setTitle("")

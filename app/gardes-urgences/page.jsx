@@ -1,6 +1,6 @@
 'use client'
-import { useState, useEffect } from "react" 
-import { displayProfessionalsGuards } from "@/api/Professionals" 
+import { useState, useEffect } from "react"
+import axios from 'axios'
 import "./gardes-urgences.css"
 import Clock from "@/components/Clock"
 import PharmaciesForGuards from "@/components/componentsGuards/PharmaciesForGuards"
@@ -54,9 +54,9 @@ export default function ProfessionalsOnCall() {
     useEffect(()=>{
         /*Timeout to get professional data after 1 second*/
         setTimeout(()=> {
-            displayProfessionalsGuards()
+            axios.get('/api/professionals-on-call')
         .then((res)=>{
-            setGuards(res.data.result)
+            setGuards(res.data)
 
                 const pharmacies = []
                 const dentists = []
