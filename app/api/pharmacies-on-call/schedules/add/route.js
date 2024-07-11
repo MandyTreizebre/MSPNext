@@ -1,12 +1,8 @@
-import PharmaciesOnCallDAL from "@/DAL/PharmaciesOnCallDAL";
+import PharmaciesOnCallDAL from "@/server/DAL/PharmaciesOnCallDAL";
 import { NextResponse } from 'next/server';
 import { withAuth } from '@/middlewares/withAuth';
 
-async function handler(req) {
-  if (req.method !== 'POST') {
-    return NextResponse.json({ message: `Method ${req.method} Not Allowed` }, { status: 405 });
-  }
-
+export const POST = withAuth(async(req) => {
   try {
     const { pharmacy_id, date, start_time, end_time } = await req.json();
     const pharmacyId = parseInt(pharmacy_id, 10);
@@ -29,6 +25,6 @@ async function handler(req) {
     console.error('Erreur dans la route:', err);
     return NextResponse.json({ msg: 'Problème lors de l\'ajout de la garde' }, { status: 500 });
   }
-}
+})
 
-export const POST = withAuth(handler);
+

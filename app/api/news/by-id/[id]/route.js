@@ -1,4 +1,4 @@
-import NewsDAL from "@/DAL/NewsDAL"
+import NewsDAL from "@/server/DAL/NewsDAL"
 import { NextResponse } from 'next/server'
 
 export async function GET(req, { params }) {

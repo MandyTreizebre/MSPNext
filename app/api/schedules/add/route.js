@@ -1,8 +1,8 @@
-import SchedulesDAL from '@/DAL/SchedulesDAL'
+import SchedulesDAL from '@/server/DAL/SchedulesDAL'
 import { NextResponse } from 'next/server'
 import { withAuth } from '@/middlewares/withAuth'
 
-async function handler(req) {
+export const POST = withAuth(async(req) => {
     const { pro_id, day_id, h_start_morning, h_end_morning, h_start_afternoon, h_end_afternoon } = await req.json()
 
     const parsedProId = parseInt(pro_id, 10)
@@ -48,6 +48,4 @@ async function handler(req) {
         console.error('Erreur lors de l\'ajout des horaires:', error)
         return NextResponse.json({ message: 'Erreur interne du serveur' }, { status: 500 })
     }
-}
-
-export const POST = withAuth(handler)
+})

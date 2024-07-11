@@ -1,8 +1,8 @@
-import ProfessionalsDAL from "@/DAL/ProfessionalsDAL"
+import ProfessionalsDAL from "@/server/DAL/ProfessionalsDAL"
 import { withAuth } from '@/middlewares/withAuth'
 import { NextResponse } from 'next/server'
 
-async function handler(req, { params }) {
+export const PUT = withAuth(async (req, { params }) => {
     const { id } = params
 
     try {
@@ -12,6 +12,4 @@ async function handler(req, { params }) {
         console.error(`Erreur lors de la désactivation du professionnel`, error)
         return NextResponse.json({ message: 'Erreur interne du serveur' }, { status: 500 })
     }
-}
-
-export const PUT = withAuth(handler)
+})

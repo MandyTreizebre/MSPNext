@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import NewsDAL from "@/DAL/NewsDAL"
+import NewsDAL from "@/server/DAL/NewsDAL"
 
 export async function GET(req) {
     try {

@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt') 
 const saltRounds = 10 
 
-const pool = require("@/db")
+const pool = require("@/server/db")
 
 class AdminsDAL {
 

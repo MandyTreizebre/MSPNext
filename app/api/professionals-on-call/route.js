@@ -1,4 +1,4 @@
-import OnCallProfessionalsDAL from "@/DAL/OnCallProfessionalsDAL"
+import OnCallProfessionalsDAL from "@/server/DAL/OnCallProfessionalsDAL"
 import { NextResponse } from 'next/server'
 
 export async function GET(req) {

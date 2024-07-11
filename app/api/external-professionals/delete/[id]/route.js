@@ -1,7 +1,8 @@
-import ExternalProfessionalsDAL from "@/DAL/ExternalProfessionalsDAL" 
+import ExternalProfessionalsDAL from "@/server/DAL/ExternalProfessionalsDAL" 
+import { withAuth } from "@/middlewares/withAuth"
 import { NextResponse } from 'next/server' 
 
-export async function DELETE(req, { params }) {
+export const DELETE = withAuth(async (req, { params }) => {
     const { id } = params 
 
     try {
@@ -14,4 +15,4 @@ export async function DELETE(req, { params }) {
         console.error('Erreur lors de la suppression du professionnel:', error) 
         return NextResponse.json({ message: 'Erreur interne du serveur' }, { status: 500 }) 
     }
-}
+})

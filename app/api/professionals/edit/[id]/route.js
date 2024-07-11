@@ -1,9 +1,9 @@
 import { withAuth } from '@/middlewares/withAuth'
-import ProfessionalsDAL from '@/DAL/ProfessionalsDAL'
+import ProfessionalsDAL from '@/server/DAL/ProfessionalsDAL'
 import { NextResponse } from 'next/server'
 import validator from 'validator'
 
-async function handler(req, { params }) {
+export const PUT = withAuth(async (req) => {
     const { id } = params;
     const { lastname, firstname, address, zip, city, phone, details, speciality_id } = await req.json();
 
@@ -52,6 +52,5 @@ async function handler(req, { params }) {
         console.error('Erreur lors de la modification du professionnel:', error);
         return NextResponse.json({ msg: "Erreur interne du serveur" }, { status: 500 });
     }
-}
+})
 
-export const PUT = withAuth(handler);

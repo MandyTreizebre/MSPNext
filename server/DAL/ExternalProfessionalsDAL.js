@@ -1,4 +1,4 @@
-const pool = require("@/db")
+const pool = require("@/server/db")
 
 class ExternalProfessionalsDAL {
     static async getExternalPros() {

@@ -1,4 +1,4 @@
-import SchedulesDAL from "@/DAL/SchedulesDAL";
+import SchedulesDAL from "@/server/DAL/SchedulesDAL";
 import { NextResponse } from 'next/server';
 
 export async function GET(req, { params }) {

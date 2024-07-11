@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import { NextResponse } from 'next/server'
 import cookie from 'cookie'
-import AdminsDAL from '@/DAL/AdminsDAL'
+import AdminsDAL from '@/server/DAL/AdminsDAL'
 
 const secret = process.env.JWT_SECRET
 

@@ -1,8 +1,8 @@
-import SchedulesDAL from '@/DAL/SchedulesDAL';
+import SchedulesDAL from '@/server/DAL/SchedulesDAL';
 import { withAuth } from '@/middlewares/withAuth';
 import { NextResponse } from 'next/server';
 
-async function handler(req, { params }) {
+export const PUT = withAuth(async (req) => {
     const { pro_id } = params;
     const body = await req.json();
     
@@ -37,6 +37,4 @@ async function handler(req, { params }) {
         console.error('Problème lors de la modification des horaires:', error);
         return NextResponse.json({ msg: "Erreur interne du serveur" }, { status: 500 });
     }
-}
-
-export const PUT = withAuth(handler);
+})

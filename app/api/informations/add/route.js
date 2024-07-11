@@ -1,16 +1,12 @@
 import { NextResponse } from 'next/server';
-import AdminsDAL from '@/DAL/AdminsDAL';
+import AdminsDAL from '@/server/DAL/AdminsDAL';
 import { withAuth } from '@/middlewares/withAuth';
 import { validatePassword } from '@/middlewares/validatePassword';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const firstnameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'’`-]+$/;
 
-async function handler(req) {
-    if (req.method !== 'POST') {
-        return NextResponse.json({ message: `Method ${req.method} Not Allowed` }, { status: 405 });
-    }
-
+export const POST = withAuth(async (req) => {
     const body = await req.json();
 
     const passwordValidationResult = validatePassword(body.password);
@@ -48,12 +44,4 @@ async function handler(req) {
         console.error('Erreur interne du serveur:', err);
         return NextResponse.json({ msg: "Erreur interne du serveur" }, { status: 500 });
     }
-}
-
-export async function POST(req) {
-    const authResult = await withAuth(req);
-    if (authResult) {
-        return authResult;
-    }
-    return handler(req);
-}
+})

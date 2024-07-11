@@ -1,4 +1,4 @@
-import HealthInformationsDAL from "@/DAL/HealthInformationsDAL"
+import HealthInformationsDAL from "@/server/DAL/HealthInformationsDAL"
 import { NextResponse } from "next/server"
 
 export async function GET(req) {

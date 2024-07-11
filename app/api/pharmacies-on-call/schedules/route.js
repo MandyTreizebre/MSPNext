@@ -1,4 +1,4 @@
-import PharmaciesOnCallDAL from "@/DAL/PharmaciesOnCallDAL"
+import PharmaciesOnCallDAL from "@/server/DAL/PharmaciesOnCallDAL"
 import { NextResponse } from 'next/server'
 
 export async function GET(req) {
