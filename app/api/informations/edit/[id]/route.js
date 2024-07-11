@@ -78,8 +78,8 @@ async function handler(req, { params }) {
 }
 
 export const PUT = withAuth(handler) 
-export const config = {
+/*export const config = {
     api: {
         bodyParser: false
     }
-} 
+} */
