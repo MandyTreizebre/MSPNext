@@ -31,7 +31,7 @@ export default function AddInformations() {
     }, []);
 
     const saveInformation = (datas, token) => {
-        axios.post('/api/informations/add', datas, {
+        axios.post('/api/informations', datas, {
             headers: {
                 'Authorization': `Bearer ${token}`
             },

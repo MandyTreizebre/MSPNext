@@ -1,10 +1,10 @@
-const pool = require("@/server/db")
+import {query} from "@/server/db"
 
 class HealthInformationsDAL {   
     
     static async getCategories(){
         try {
-            const [rows] = await pool.query('SELECT id, name, picture FROM category_informations')
+            const rows = await query('SELECT id, name, picture FROM category_informations')
             return rows
         } catch (err) {
             throw err
@@ -13,7 +13,7 @@ class HealthInformationsDAL {
 
     static async getInformations(){
         try {
-            const [rows] = await pool.query('SELECT id, title, description, image, link, category FROM health_informations')
+            const rows = await query('SELECT id, title, description, image, link, category FROM health_informations')
             return rows
         } catch (err) {
             throw err
@@ -22,7 +22,7 @@ class HealthInformationsDAL {
 
     static async getInformationsByCategory(category){
         try {
-            const [rows] = await pool.query('SELECT title, description, image, link, category FROM health_informations INNER JOIN category_informations ON health_informations.category = category_informations.id WHERE category = ?', [category])
+            const rows = await query('SELECT title, description, image, link, category FROM health_informations INNER JOIN category_informations ON health_informations.category = category_informations.id WHERE category = ?', [category])
             return rows
         } catch (err) {
             throw err
@@ -31,7 +31,7 @@ class HealthInformationsDAL {
 
     static async deleteInformation(id){
         try {
-            const [rows] = await pool.query('DELETE FROM health_informations WHERE id= ?', [id])
+            const rows = await query('DELETE FROM health_informations WHERE id= ?', [id])
             return rows
         } catch (err) {
             throw err
@@ -40,7 +40,7 @@ class HealthInformationsDAL {
 
     static async getInformationByID(id){
         try {
-            const [rows] = await pool.query('SELECT id, title, description, image, link, category FROM health_informations WHERE id = ?', [id])
+            const rows = await query('SELECT id, title, description, image, link, category FROM health_informations WHERE id = ?', [id])
             return rows
         } catch (err) {
             throw err
@@ -53,8 +53,10 @@ class HealthInformationsDAL {
         let query = 'INSERT INTO health_informations(title, description, image, link, category) VALUES(?, ?, ?, ?, ?)'
         let queryParams = [title, description, picturePath, link, category]
     
+        console.log("data", data)
+        
         try {
-            const [result] = await pool.query(query, queryParams)
+            const result = await query(query, queryParams)
             return result
         } catch (err) {
             throw err
@@ -79,7 +81,7 @@ class HealthInformationsDAL {
         queryParams.push(id) 
 
         try {
-            const [result] = await pool.query(query, queryParams)
+            const result = await query(query, queryParams)
             return result 
         } catch (err) {
             console.error('DAL error:', err)

@@ -19,7 +19,7 @@ const AddExternalPros = () => {
 	}
 
 	const saveExternalPro = (datas, token) => {
-        axios.post('/api/external-professionals/add', datas, {
+        axios.post('/api/external-professionals', datas, {
             headers: {
                 'Authorization': `Bearer ${token}`
             },

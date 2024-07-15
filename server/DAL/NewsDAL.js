@@ -1,9 +1,9 @@
-const pool = require("@/server/db")
+import {query} from "@/server/db"
 
 class NewsDAL {
     static async getNews(){
         try {
-            const [rows] = await pool.query('SELECT id, title, details, picture, external_link FROM news')
+            const rows = await query('SELECT id, title, details, picture, external_link FROM news')
             return rows
         } catch (err) {
             throw err
@@ -12,7 +12,7 @@ class NewsDAL {
 
     static async deleteNew(id){
         try {
-            const [rows] = await pool.query('DELETE FROM news WHERE id= ?', [id])
+            const rows = await query('DELETE FROM news WHERE id= ?', [id])
             return rows
         } catch (err) {
             throw err
@@ -21,7 +21,7 @@ class NewsDAL {
 
     static async getNewByID(id){
         try {
-            const [rows] = await pool.query('SELECT id, title, details, picture, external_link FROM news WHERE id = ?', [id] )
+            const rows = await query('SELECT id, title, details, picture, external_link FROM news WHERE id = ?', [id] )
             return rows
         } catch (err) {
             throw err
@@ -35,7 +35,7 @@ class NewsDAL {
         let queryParams = [title, details, picturePath, externalLink];
 
         try {
-            const [result] = await pool.query(query, queryParams);
+            const result = await query(query, queryParams);
             return result;
         } catch (err) {
             throw err;
@@ -60,7 +60,7 @@ class NewsDAL {
         queryParams.push(id) 
 
         try {
-            const [result] = await pool.query(query, queryParams)
+            const result = await query(query, queryParams)
             return result 
         } catch (err) {
             console.error('DAL error:', err)

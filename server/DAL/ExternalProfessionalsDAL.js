@@ -1,9 +1,9 @@
-const pool = require("@/server/db")
+import {query} from "@/server/db"
 
 class ExternalProfessionalsDAL {
     static async getExternalPros() {
         try {
-            const [rows] = await pool.query('SELECT id, name, picture, link from external_professionals')
+            const rows = await query('SELECT id, name, picture, link from external_professionals')
             return rows
         } catch (err) {
             throw err
@@ -17,7 +17,7 @@ class ExternalProfessionalsDAL {
         let queryParams = [name, link, picture] 
 
         try {
-            const [result] = await pool.query(query, queryParams) 
+            const result = await query(query, queryParams) 
             return result 
         } catch (err) {
             throw err 
@@ -39,7 +39,7 @@ class ExternalProfessionalsDAL {
         queryParams.push(id) 
 
         try {
-            const [result] = await pool.query(query, queryParams) 
+            const result = await query(query, queryParams) 
             return result 
         } catch (err) {
             throw err 
@@ -48,7 +48,7 @@ class ExternalProfessionalsDAL {
     
     static async deleteExternalPro(id){
         try {
-            const [rows] = await pool.query('DELETE FROM external_professionals WHERE id= ?', [id])
+            const rows = await query('DELETE FROM external_professionals WHERE id= ?', [id])
             return rows
         } catch (err) {
             throw err
@@ -57,7 +57,7 @@ class ExternalProfessionalsDAL {
 
     static async getExternalProByID(id){
         try {
-            const [rows] = await pool.query('SELECT id, name, picture, link FROM external_professionals WHERE id = ?',[id])
+            const rows = await query('SELECT id, name, picture, link FROM external_professionals WHERE id = ?',[id])
             return rows
         } catch (err) {
             throw err
