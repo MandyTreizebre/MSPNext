@@ -66,10 +66,6 @@
     background-color: var(--green-color); 
   }
   
-  .captcha {
-    margin: 30px auto;
-  }
-  
   .forgot-password a {
     text-align: center;
     color: var(--dark-green-color);

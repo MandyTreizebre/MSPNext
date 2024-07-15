@@ -6,7 +6,6 @@ import Link from 'next/link'
 import axios from 'axios'
 import { connectAdmin } from '../../slices/adminSlice' 
 import "./login.css"
-import ReCAPTCHA from "react-google-recaptcha"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 
@@ -31,11 +30,6 @@ export default function Login() {
     const onSubmitForm = (e) => {
         e.preventDefault() 
         setError(null)
-    
-        if (!captachaValue) {
-            alert("Veuillez remplir le CAPTCHA")
-            return
-        }
     
         if (!validateEmail(email)) {
             setError("Adresse e-mail invalide")
@@ -94,12 +88,6 @@ export default function Login() {
                         required
                     />
                 </div>
-
-                <ReCAPTCHA
-                    sitekey={process.env.NEXT_PUBLIC_CAPTCHA_KEY}
-                    onChange={onCaptchaChange}
-                    className='captcha'
-                />
 
                 <input type="submit" 
                     name="Se connecter" 

@@ -21,7 +21,7 @@ const EditExternalPro = () => {
     } 
 
     useEffect(() => {
-        axios.get(`/api/external-professionals/by-id/${id}`)
+        axios.get(`/api/external-professionals/${id}`)
             .then((res) => {
                 if (res.data && res.data.length > 0) {
                     const data = res.data[0] 

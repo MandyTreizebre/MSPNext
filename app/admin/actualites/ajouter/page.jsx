@@ -20,7 +20,7 @@ export default function AddNews() {
     }
 
     const saveNew = (datas, token) => {
-        axios.post('/api/news/add', datas, {
+        axios.post('/api/news', datas, {
             headers: {
                 'Authorization': `Bearer ${token}`
             },

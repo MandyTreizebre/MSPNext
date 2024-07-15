@@ -11,7 +11,7 @@ class ExternalProfessionalsDAL {
     }
 
     static async addExternalPro(data) {
-        const { name, link, picture } = data.body 
+        const { name, link, picture } = data.body
 
         let query = 'INSERT INTO external_professionals (name, link, picture) VALUES (?, ?, ?)' 
         let queryParams = [name, link, picture] 

@@ -57,7 +57,8 @@ export default function ProfessionalsOnCall() {
             axios.get('/api/professionals-on-call')
         .then((res)=>{
             setGuards(res.data)
-
+            console.log("res.data", res.data)
+            console.log("guards", guards)
                 const pharmacies = []
                 const dentists = []
                 const doctors = []
@@ -88,11 +89,14 @@ export default function ProfessionalsOnCall() {
                             }
                         }
                     }
+                    console.log("professional.name_spe", professional.name_spe)
+                    
                 })    
                 /*Update the state with the categorized professionals*/
                 setPharmacies(pharmacies)
                 setDentists(dentists) 
-                setDoctors(doctors) 
+                setDoctors(doctors)
+                console.log("dentists, doctors et pharmacies", doctors, dentists, pharmacies)
         })
         .catch(err => console.error(err))
         }, 1000)
