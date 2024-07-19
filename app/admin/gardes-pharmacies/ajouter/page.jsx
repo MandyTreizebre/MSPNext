@@ -35,7 +35,6 @@ export default function AddPharmaciesOnCallAndSchedules() {
         setError(null) 
         axios.get('/api/pharmacies-on-call')
             .then((res) => {
-                console.log("res.data", res.data)
                 setPharmaciesOnCall(res.data) 
             })
             .catch((err) => {

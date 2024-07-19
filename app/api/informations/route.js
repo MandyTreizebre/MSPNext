@@ -21,7 +21,6 @@ export const POST = withAuth(async(req) => {
   const link = formData.get('link')
   const file = formData.get('image')
 
-  console.log("formData", formData)
 
   const validatedTitle = title?.trim() ?? "" 
   const validatedDescription = description?.trim() ?? ""

@@ -1,5 +1,7 @@
 import {query} from "@/server/db"
 
+console.log("NewsDAL loaded")
+
 class NewsDAL {
     static async getNews(){
         try {
@@ -29,17 +31,24 @@ class NewsDAL {
     }
 
     static async addNew(data) {
-        const { title, details, externalLink, picturePath } = data.body
+        const { title, details, externalLink, pictureUrl } = data.body
 
-        let query = 'INSERT INTO news (title, details, picture, external_link) VALUES(?, ?, ?, ?)';
-        let queryParams = [title, details, picturePath, externalLink];
+        let sqlRequest = 'INSERT INTO news (title, details, picture, external_link) VALUES(?, ?, ?, ?)';
+        let params = [title, details, pictureUrl, externalLink];
+
+        console.log("About to call query in addNew with SQL:", sqlRequest)
+        console.log("Params dans addNew:", params)
 
         try {
-            const result = await query(query, queryParams);
+            const result = await query(sqlRequest, params)
+            console.log('Query Result:', result)
             return result;
         } catch (err) {
+            console.error("Query error:", err)
             throw err;
         }
+
+        
     }
 
     static async updateNew(data, id) {
@@ -61,6 +70,7 @@ class NewsDAL {
 
         try {
             const result = await query(query, queryParams)
+            console.log('Query Result:', result)
             return result 
         } catch (err) {
             console.error('DAL error:', err)

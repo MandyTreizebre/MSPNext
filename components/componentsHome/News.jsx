@@ -17,6 +17,7 @@ const News = () => {
             .then((res) => {
                 setNews(res.data) 
                 setLoading(false) 
+                console.log("res.data suite appel /api/news =>", res.data)
             })
             .catch(err => {
                 setError("Une erreur s’est produite lors de la récupération des actualités.", err) 
@@ -85,7 +86,7 @@ const News = () => {
                         {news.map((item, index) => (
                             <div key={item.id || index}>
                                 <section className="box-news">
-                                    <Image src={config.pict_url+item.picture} className='img-news' alt={item.title} width={500} height={500}/>
+                                    <Image src={item.picture} className='img-news' alt={item.title} width={500} height={500}/>
                                     <h3>{item.title}</h3>
                                     <p>{item.details}</p>
                                     <Link href={item.external_link} 

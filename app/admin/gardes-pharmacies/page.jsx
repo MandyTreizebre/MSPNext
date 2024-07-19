@@ -13,7 +13,6 @@ export default function PagePharmaciesOnCall() {
         setError(null)
         axios.get('/api/pharmacies-on-call')
             .then((res)=> {
-                console.log("data reçue de pharmacies-on-call/schedules =>", res.data)
                 setPharmaciesOnCall(res.data)
             })
             .catch((err) => {
