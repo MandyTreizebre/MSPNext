@@ -13,7 +13,6 @@ export default function HealthProfessionals () {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        console.log(speciality_id)
         axios.get(`/api/professionals/${speciality_id}`)
         .then((res) => {
             setProfessionals(res.data)

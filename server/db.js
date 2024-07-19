@@ -18,14 +18,9 @@ const pool = process.env.POSTGRES_URL
   const replaceQuestionMarks = (input) => {
     let index = 0;
     return input.replace(/\?/g, () => `$${++index}`);
-  };
-
-  console.log("db.js loaded")
+  }
 
 export function query(sql, params) {
-  console.log("query function called"); 
-  console.log("SQL:", sql); 
-  console.log("Params:", params); 
 
   if (process.env.POSTGRES_URL) {
     return pool.query(replaceQuestionMarks(sql), params).then(res => {

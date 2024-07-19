@@ -67,13 +67,9 @@ export default function AddInformations() {
         formData.append('pictureUrl', pictureUrl) 
         formData.append('category', selectedCategory)
 
-        console.log("formData =>", formData)
-
         saveInformation(formData, token);
-    };
+    }
 
-    console.log("selectedCategory", selectedCategory)
-    
     return (
         <>
             <section className="form-container">

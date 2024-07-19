@@ -16,7 +16,6 @@ class PharmaciesOnCallDAL {
             const rows = await query('SELECT pharmacies.id, pharmacies.name, pharmacies.address, pharmacies.phone, pharmacies_schedules.date, pharmacies_schedules.start_time, pharmacies_schedules.end_time FROM pharmacies INNER JOIN pharmacies_schedules ON pharmacies.id = pharmacies_schedules.pharmacy_id WHERE pharmacies_schedules.date = CURRENT_DATE')
             return rows
         } catch (err) {
-            console.log(err)
             throw err
         }
     }

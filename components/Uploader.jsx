@@ -17,9 +17,6 @@ export default function UploadFiles({ onUpload }) {
                 body: formData,
             }) 
 
-            console.log("file.type:", file.type)
-            console.log("FormData:", formData.get('file'))
-
             const newBlob = await response.json() 
             onUpload(newBlob.url) 
             setUploadMessage("success")

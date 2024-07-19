@@ -7,7 +7,6 @@ export const POST = withAuth(async(req) => {
     try {
         // Récupérer les données de la requête
         const body = await req.json();
-        console.log("Request body:", body);
         const { lastname, firstname, address, zip, city, phone, details, speciality_id } = body;
         
         // Vérifier si les champs sont définis
@@ -65,7 +64,6 @@ export const POST = withAuth(async(req) => {
             return NextResponse.json({ msg: "Erreur interne du serveur" }, { status: 500 });
         }
 
-        console.log("Professional added successfully:", addedPro);
         return NextResponse.json({ msg: "Professionnel créé", result: addedPro }, { status: 201 });
     } catch (error) {
         console.error('Erreur lors de la création du professionnel:', error);

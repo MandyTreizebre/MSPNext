@@ -6,6 +6,16 @@ export const DELETE = withAuth(async (req, { params }) => {
     const { id } = params 
   
     try {
+
+        const externalProPicture = await ExternalProfessionalsDAL.getExternalProPicture(id)
+        if (!externalProPicture) {
+            return NextResponse.json({ message: 'Image non trouvée' }, { status: 404 })
+        }
+
+        if (externalProPicture) {
+            await deleteBlob(externalProPicture)
+        }
+
         const deletedExternalProfessional = await ExternalProfessionalsDAL.deleteExternalPro(id) 
         if (deletedExternalProfessional.affectedRows === 0) {
             return NextResponse.json({ message: 'Professionnel non trouvé' }, { status: 404 }) 

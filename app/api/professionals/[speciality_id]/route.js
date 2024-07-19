@@ -6,7 +6,6 @@ export async function GET(req, { params }) {
 
     try {
         const professional = await ProfessionalsDAL.getProBySpe(speciality_id)
-        console.log(professional)
         return NextResponse.json(professional, {status: 200})
     } catch (error) {
         console.error(`Erreur lors de la récupération du professionnel`, error)

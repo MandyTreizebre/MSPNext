@@ -5,8 +5,7 @@ const secret = process.env.JWT_SECRET;
 
 export function withAuth(handler) {
     return (req, ...params) => {
-        const token = req.cookies.get("token");
-        console.log(token)
+        const token = req.cookies.get("token")
 
         if (!token) {
             return NextResponse.json({ msg: "Token introuvable, veuillez vous connecter" }, { status: 401 });

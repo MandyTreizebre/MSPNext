@@ -17,7 +17,6 @@ const News = () => {
             .then((res) => {
                 setNews(res.data) 
                 setLoading(false) 
-                console.log("res.data suite appel /api/news =>", res.data)
             })
             .catch(err => {
                 setError("Une erreur s’est produite lors de la récupération des actualités.", err) 

@@ -16,7 +16,6 @@ export const POST = withAuth(async(req) => {
     });
 
     if (addedSchedules.code) {
-      console.log('.code dans la route =>', addedSchedules.code);
       return NextResponse.json({ msg: 'Problème lors de l\'ajout de la garde' }, { status: 500 });
     }
 

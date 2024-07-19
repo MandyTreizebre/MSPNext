@@ -1,7 +1,5 @@
 import {query} from "@/server/db"
 
-console.log("NewsDAL loaded")
-
 class NewsDAL {
     static async getNews(){
         try {
