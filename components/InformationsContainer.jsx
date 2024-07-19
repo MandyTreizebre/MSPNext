@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { config } from "@/config";
 import "../styles/informationsContainer.css";
 
 const InformationsContainer = ({ informations }) => {
@@ -8,7 +7,7 @@ const InformationsContainer = ({ informations }) => {
             {informations.map((info) => (
                 <section key={info.id} className="section-informations">
                     <img
-                        src={config.pict_url + info.image}
+                        src={info.picture}
                         alt={info.title}
                         className="pict-information"
                     />

@@ -10,7 +10,7 @@ export default function AddInformations() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [link, setLink] = useState("");
-    const [image, setImage] = useState(null);
+    const [pictureUrl, setPictureUrl] = useState("") 
     const [category, setCategory] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [error, setError] = useState("");
@@ -19,7 +19,6 @@ export default function AddInformations() {
     const handleCloseModal = () => {
         setOpenAddInformationModal(false);
     };
-
     useEffect(() => {
         axios.get('/api/categories-informations')
             .then((res) => {
@@ -42,7 +41,7 @@ export default function AddInformations() {
                     setTitle("");
                     setDescription("");
                     setLink("");
-                    setImage(null);
+                    setPictureUrl("") 
                     setSelectedCategory(null);
                     
                     setOpenAddInformationModal(true);
@@ -61,22 +60,20 @@ export default function AddInformations() {
     };
 
     const handleSubmit = () => {
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('description', description);
+        const formData = new FormData()
+        formData.append('title', title)
+        formData.append('description', description)
         formData.append('link', link);
-        formData.append('category', selectedCategory);
+        formData.append('pictureUrl', pictureUrl) 
+        formData.append('category', selectedCategory)
 
-        if (image) {
-            formData.append('image', image);
-        } else {
-            setError("Image manquante");
-            return;
-        }
+        console.log("formData =>", formData)
 
         saveInformation(formData, token);
     };
 
+    console.log("selectedCategory", selectedCategory)
+    
     return (
         <>
             <section className="form-container">
@@ -85,12 +82,12 @@ export default function AddInformations() {
                 <AddHealthInformationsForm
                     title={title}
                     description={description}
-                    image={image}
+                    pictureUrl={pictureUrl}
                     link={link}
                     categoriesList={category}
                     onChangeTitle={setTitle}
                     onChangeDescription={setDescription}
-                    onChangePicture={setImage}
+                    onChangePicture={setPictureUrl}
                     onChangeLink={setLink}
                     onChangeCategory={setSelectedCategory}
                     handleSubmit={handleSubmit}

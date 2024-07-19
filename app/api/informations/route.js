@@ -1,7 +1,6 @@
 import HealthInformationsDAL from "@/server/DAL/HealthInformationsDAL"
 import { NextResponse } from "next/server"
-import { withAuth } from '@/middlewares/withAuth';
-import { saveFile } from '@/server/files'
+import { withAuth } from '@/middlewares/withAuth'
 
 export async function GET(req) {
     try {
@@ -19,21 +18,17 @@ export const POST = withAuth(async(req) => {
   const title = formData.get('title')
   const description = formData.get('description')
   const link = formData.get('link')
-  const file = formData.get('image')
-
+  const pictureUrl = formData.get('pictureUrl')
+  const category = formData.get('category')
 
   const validatedTitle = title?.trim() ?? "" 
   const validatedDescription = description?.trim() ?? ""
-  const validatedLink = link?.trim() ?? "" 
+  const validatedLink = link?.trim() ?? ""
+  const validatedCategory = parseInt(category, 10)
   
   if (!/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'’`-]{1,100}$/u.test(validatedTitle)) {
     console.error('Titre invalide')
     return NextResponse.json({ msg: "Titre invalide" }, { status: 400 })
-  }
-
-  if (!/^[\p{L}0-9 .,'-]{1,500}$/u.test(validatedDescription)) {
-    console.error('Description invalide')
-    return NextResponse.json({ msg: "Description invalide" }, { status: 400 })
   }
 
   if (!/^(https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[a-zA-Z0-9._-]*)*\/?$/.test(validatedLink)) {
@@ -41,10 +36,10 @@ export const POST = withAuth(async(req) => {
     return NextResponse.json({ msg: "Lien invalide" }, { status: 400 })
   }
 
-  let picturePath = null
-  if (file) {
-    picturePath = await saveFile(file)
-  }
+  if (isNaN(validatedCategory)) {
+    console.error('Catégorie invalide');
+    return NextResponse.json({ msg: "Catégorie invalide" }, { status: 400 });
+}
 
   try {
     const result = await HealthInformationsDAL.addInformation({
@@ -52,7 +47,8 @@ export const POST = withAuth(async(req) => {
         title: validatedTitle,
         description: validatedDescription,
         link: validatedLink,
-        image: picturePath
+        pictureUrl: pictureUrl,
+        category: validatedCategory
       }
     })
 

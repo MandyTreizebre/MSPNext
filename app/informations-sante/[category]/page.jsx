@@ -24,6 +24,8 @@ export default function InformationsByCategory() {
     }, [category])
 
 
+    console.log("categoryData =>", categoryData)
+    
     if (error) {
         return <div className="error-message">{error}</div>
     }

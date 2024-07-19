@@ -13,7 +13,7 @@ class HealthInformationsDAL {
 
     static async getInformations(){
         try {
-            const rows = await query('SELECT id, title, description, image, link, category FROM health_informations')
+            const rows = await query('SELECT id, title, description, picture, link, category FROM health_informations')
             return rows
         } catch (err) {
             throw err
@@ -22,9 +22,10 @@ class HealthInformationsDAL {
 
     static async getInformationsByCategory(category){
         try {
-            const rows = await query('SELECT title, description, image, link, category FROM health_informations INNER JOIN category_informations ON health_informations.category = category_informations.id WHERE category = ?', [category])
+            const rows = await query('SELECT hi.title, hi.description, hi.picture, hi.link, hi.category FROM health_informations hi INNER JOIN category_informations ci ON hi.category = ci.id WHERE category = ?', [category])
             return rows
         } catch (err) {
+            console.error('Erreur dans getInformationsByCategory:', err)
             throw err
          }
     }
@@ -40,7 +41,7 @@ class HealthInformationsDAL {
 
     static async getInformationByID(id){
         try {
-            const rows = await query('SELECT id, title, description, image, link, category FROM health_informations WHERE id = ?', [id])
+            const rows = await query('SELECT id, title, description, picture, link, category FROM health_informations WHERE id = ?', [id])
             return rows
         } catch (err) {
             throw err
@@ -48,15 +49,13 @@ class HealthInformationsDAL {
     }
 
     static async addInformation(data) {
-        const { title, description, link, category, picturePath } = data.body
+        const { title, description, link, category, pictureUrl } = data.body
 
-        let query = 'INSERT INTO health_informations(title, description, image, link, category) VALUES(?, ?, ?, ?, ?)'
-        let queryParams = [title, description, picturePath, link, category]
-    
-        console.log("data", data)
+        let sqlRequest = 'INSERT INTO health_informations(title, description, picture, link, category) VALUES(?, ?, ?, ?, ?)'
+        let params = [title, description, pictureUrl, link, category]
         
         try {
-            const result = await query(query, queryParams)
+            const result = await query(sqlRequest, params)
             return result
         } catch (err) {
             throw err

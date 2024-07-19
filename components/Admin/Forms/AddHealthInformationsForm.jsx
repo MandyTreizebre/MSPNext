@@ -1,46 +1,18 @@
 import { useState } from "react" 
-import "@/styles/admin-forms.css" 
+import "@/styles/admin-forms.css"
+import UploadFiles from "@/components/Uploader"
 
 const AddHealthInformationsForm = (props) => {
     const [errors, setErrors] = useState({
         title: "",
         description: "",
-        image: "",
+        picture: "",
         link: ""
     }) 
 
     const handleInputChange = (setter) => (e) => {
-        const { value, name } = e.currentTarget 
-        const finalValue = name === 'categories' ? parseInt(value, 10) : value 
-        setter(finalValue) 
-        setErrors(prev => ({ ...prev, [name]: "" })) 
-    } 
-
-    const maxFileSize = 5 * 1024 * 1024  // 5MB
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0] 
-        if (file) {
-            const validTypes = ['image/jpeg', 'image/jpg', 'image/png'] 
-            if (!validTypes.includes(file.type)) {
-                setErrors(prevErrors => ({
-                    ...prevErrors,
-                    image: "Erreur de format d'image, JPEG, JPG et PNG autorisés"
-                })) 
-            } else if (file.size > maxFileSize) {
-                setErrors(prevErrors => ({
-                    ...prevErrors,
-                    image: "La taille du fichier dépasse la limite de 5MB"
-                })) 
-            } else {
-                props.onChangePicture(file) 
-                setErrors(prevErrors => ({
-                    ...prevErrors,
-                    image: ""
-                })) 
-            }
-        }
-    } 
+        setter(e.currentTarget.value)
+      }
 
     const validateForm = () => {
         let errorsForm = { ...errors } 
@@ -92,15 +64,9 @@ const AddHealthInformationsForm = (props) => {
                 />
                 {errors.description && <p className="error-message">{errors.description}</p>}
 
-                <label htmlFor="image">Image <span className="required-asterisk">*</span></label>
-                <input
-                    type="file"
-                    name="picture"
-                    onChange={handleImageChange}
-                    encType="multipart/form-data"
-                    required
-                />
-                {errors.image && <p className="error-message">{errors.image}</p>}
+                <label htmlFor="picture">Image</label>
+                <UploadFiles onUpload={props.onChangePicture} />
+                {errors.picture && <p className="error-message">{errors.picture}</p>}
 
                 <label htmlFor="link">Lien <span className="required-asterisk">*</span></label>
                 <input
