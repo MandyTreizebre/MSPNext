@@ -10,13 +10,27 @@ const AddExternalPros = () => {
 
 	const [name, setName] = useState("")
 	const [link, setLink] = useState("")
-	const [picture, setPicture] = useState(null)
+	const [pictureUrl, setPictureUrl] = useState(null)
 	const [error, setError] = useState(null)
 	const [openAddExternalProModal, setOpenAddExternalProModal] = useState(false)
 
 	const handleCloseModal = () => {
 		setOpenAddExternalProModal(false)
 	}
+
+	const handleSubmit = () => {
+        if (!name || !link) {
+            setError("Tous les champs sont obligatoires") 
+            return 
+        }
+
+        const formData = new FormData() 
+        formData.append('name', name) 
+        formData.append('link', link) 
+        formData.append('pictureUrl', pictureUrl) 
+
+        saveExternalPro(formData, token) 
+    } 
 
 	const saveExternalPro = (datas, token) => {
         axios.post('/api/external-professionals', datas, {
@@ -29,7 +43,7 @@ const AddExternalPros = () => {
 				if(res.status === 201) {
 					setName("")
 					setLink("")
-					setPicture(null)
+					setPictureUrl("")
 					setError(null)
 					setOpenAddExternalProModal(true)
 					setTimeout(()=>{
@@ -56,17 +70,6 @@ const AddExternalPros = () => {
 			})
 	}
 
-	const handleSubmit = () => {
-		const formData = new FormData()
-		formData.append('name', name)
-		formData.append('link', link)
-		if(picture) {
-			formData.append('picture', picture)
-		}
-
-		saveExternalPro(formData, token)
-	}
-
 	return (
 		<>
 			<section className="form-container">
@@ -75,11 +78,11 @@ const AddExternalPros = () => {
 				<AddExternalProForm
 				name={name}
 				link={link}
-				picture={picture}
+				pictureUrl={pictureUrl}
 
 				onChangeName={setName}
 				onChangeLink={setLink}
-				onChangePicture={setPicture}
+				onChangePicture={setPictureUrl}
 				handleSubmit={handleSubmit}
 				/>
 

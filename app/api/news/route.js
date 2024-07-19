@@ -13,14 +13,12 @@ export async function GET(req) {
 }
 
 export const POST = withAuth(async (req) => {
-    console.log("POST request received")
+
     const formData = await req.formData()
     const title = formData.get('title')
     const details = formData.get('details')
     const pictureUrl = formData.get('pictureUrl')
     const externalLink = formData.get('external_link') 
-
-    console.log("Form data:", { title, details, pictureUrl, externalLink })
 
     if (!/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'’`-]{1,50}$/.test(title)) {
         console.error('Titre invalide')
@@ -33,15 +31,6 @@ export const POST = withAuth(async (req) => {
     }
 
     try {
-        console.log('Data to pass to addNew:', {
-            body: {
-                title: title,
-                details: details,
-                pictureUrl: pictureUrl, 
-                externalLink: externalLink, 
-            }
-        });
-
         const result = await NewsDAL.addNew({
             body: {
                 title: title,
@@ -50,8 +39,6 @@ export const POST = withAuth(async (req) => {
                 externalLink: externalLink, 
             }
         })
-
-        console.log('API Result:', result)
 
         if (result.affectedRows === 0) {
             return NextResponse.json({ msg: "Erreur interne du serveur" }, { status: 500 })

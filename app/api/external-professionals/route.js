@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server"
 import ExternalProfessionalsDAL from "@/server/DAL/ExternalProfessionalsDAL"
 import { withAuth } from '@/middlewares/withAuth'
-import { saveFile } from '@/server/files'
-import fs from 'fs'
-import path from 'path' 
-import os from 'os' 
 
 export async function GET(req) {
     try {
@@ -21,7 +17,7 @@ export const POST = withAuth(async(req) => {
   const formData = await req.formData()
   const name = formData.get('name')
   const link = formData.get('link')
-  const file = formData.get('picture')
+  const pictureUrl = formData.get('pictureUrl')
 
   const validatedName = name?.trim() ?? "" 
   const validatedLink = link?.trim() ?? "" 
@@ -36,17 +32,12 @@ export const POST = withAuth(async(req) => {
     return NextResponse.json({ msg: "Lien invalide" }, { status: 400 })
   }
 
-  let picturePath = null
-  if (file) {
-    picturePath = await saveFile(file)
-  }
-
   try {
     const result = await ExternalProfessionalsDAL.addExternalPro({
       body: {
         name: validatedName,
         link: validatedLink,
-        picture: picturePath
+        pictureUrl: pictureUrl
       }
     })
 
@@ -61,35 +52,3 @@ export const POST = withAuth(async(req) => {
   }
 })
 
-async function parseMultipartForm(req) {
-  const chunks = [] 
-  for await (const chunk of req.body) {
-      chunks.push(chunk) 
-  }
-  const boundary = req.headers.get('content-type').split('=')[1] 
-  const buffer = Buffer.concat(chunks) 
-  const parts = buffer.toString().split(`--${boundary}`) 
-
-  const fields = {} 
-  let file = null 
-
-  for (const part of parts) {
-      if (part.indexOf('Content-Disposition') === -1) continue 
-      const [header, body] = part.split('\r\n\r\n') 
-      if (header.includes('filename')) {
-          const fileName = header.match(/filename="(.+?)"/)[1] 
-          const contentType = header.match(/Content-Type: (.+?)\r\n/)[1] 
-          const filePath = path.join(os.tmpdir(), fileName) 
-          fs.writeFileSync(filePath, body.trim()) 
-          file = {
-              path: filePath,
-              name: fileName,
-              type: contentType,
-          } 
-      } else {
-          const name = header.match(/name="(.+?)"/)[1] 
-          fields[name] = body.trim() 
-      }
-  }
-  return { fields, file } 
-}

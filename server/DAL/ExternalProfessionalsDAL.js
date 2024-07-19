@@ -11,13 +11,13 @@ class ExternalProfessionalsDAL {
     }
 
     static async addExternalPro(data) {
-        const { name, link, picture } = data.body
+        const { name, link, pictureUrl } = data.body
 
-        let query = 'INSERT INTO external_professionals (name, link, picture) VALUES (?, ?, ?)' 
-        let queryParams = [name, link, picture] 
+        let sqlRequest = 'INSERT INTO external_professionals (name, link, picture) VALUES (?, ?, ?)' 
+        let params = [name, link, pictureUrl] 
 
         try {
-            const result = await query(query, queryParams) 
+            const result = await query(sqlRequest, params) 
             return result 
         } catch (err) {
             throw err 

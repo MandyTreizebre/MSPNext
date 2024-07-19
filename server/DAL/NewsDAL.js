@@ -36,19 +36,12 @@ class NewsDAL {
         let sqlRequest = 'INSERT INTO news (title, details, picture, external_link) VALUES(?, ?, ?, ?)';
         let params = [title, details, pictureUrl, externalLink];
 
-        console.log("About to call query in addNew with SQL:", sqlRequest)
-        console.log("Params dans addNew:", params)
-
         try {
             const result = await query(sqlRequest, params)
-            console.log('Query Result:', result)
-            return result;
+            return result
         } catch (err) {
-            console.error("Query error:", err)
-            throw err;
+            throw err
         }
-
-        
     }
 
     static async updateNew(data, id) {

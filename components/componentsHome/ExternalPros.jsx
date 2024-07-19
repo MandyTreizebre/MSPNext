@@ -1,6 +1,5 @@
 import {useState, useEffect } from "react"
 import axios from "axios"
-import { config } from "@/config"
 import Link from 'next/link'
 import "../../styles/externalPros.css"
 
@@ -36,7 +35,7 @@ const ExternalPros = () => {
                                       aria-label="Visiter le site des professionnels (s'ouvre dans un nouvel onglet)"
                                 >
                                     <div className="container-card-infos-pros">
-                                        <img src={`${config.api_url}/${pro.picture}`} className='img-external-pros' alt={pro.name}/>
+                                        <img src={`${pro.picture}`} className='img-external-pros' alt={pro.name}/>
                                     </div>
                                 </Link>
                             </div>
