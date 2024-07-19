@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
 import NewsDAL from "@/server/DAL/NewsDAL"
 import { withAuth } from '@/middlewares/withAuth'
-import { saveFile } from '@/server/files'
 
 export const PUT = withAuth(async (req, { params }) => {
     const { id } = params
@@ -10,8 +9,8 @@ export const PUT = withAuth(async (req, { params }) => {
     const title = formData.get('title')
     const details = formData.get('details')
     const externalLink = formData.get('external_link')
-    const file = formData.get('picture')
-    const existingImage = formData.get('existingImage')
+    const pictureUrl = formData.get('pictureUrl')
+    const existingPictureUrl = formData.get('existingPictureUrl')
 
     if (!/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'’`-]{1,50}$/.test(title)) {
         console.error('Titre invalide')
@@ -23,19 +22,13 @@ export const PUT = withAuth(async (req, { params }) => {
         return NextResponse.json({ msg: "Lien invalide" }, { status: 400 })
     }
 
-    let picturePath = null
-    if (file) {
-        picturePath = await saveFile(file)
-    }
-
     try {
         const result = await NewsDAL.updateNew({
             body: {
                 title: title,
                 details: details,
-                picturePath: picturePath,
+                pictureUrl: pictureUrl || existingPictureUrl,
                 externalLink: externalLink,
-                existingImage: existingImage
             }
         }, id)
 
@@ -43,7 +36,6 @@ export const PUT = withAuth(async (req, { params }) => {
             return NextResponse.json({ msg: "Erreur interne du serveur" }, { status: 500 })
         }
 
-        console.log('Information modifiée:', result)
         return NextResponse.json({ result }, { status: 200 })
     } catch (error) {
         console.error(`Erreur lors de la modification de l'actualité ${error}`)

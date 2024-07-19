@@ -36,7 +36,6 @@ export default function UploadFiles({ onUpload }) {
             ref={inputFileRef}
             onChange={handleFileUpload}
             accept="image/*"
-            required
             />
             {uploadMessage === 'success' && <p>Image téléchargée.</p>}
             {uploadMessage === 'error' && <p>Erreur lors du téléchargement de l'image</p>} 

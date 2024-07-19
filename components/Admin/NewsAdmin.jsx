@@ -50,7 +50,7 @@ const NewsAdmin = ({ news, setNews }) => {
                     <div className='actions-news'>
                         <Link href={`/admin/actualites/editer/${item.id}`}>
                             <FontAwesomeIcon icon={faPenToSquare} className="icon-admin" />
-                            Modifier l&apos actualité
+                            Modifier l&apos; actualité
                         </Link>
                         <button onClick={() => onClickDeleteNew(item.id)}>
                             Supprimer l&apos; actualité

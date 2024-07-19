@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import ExternalProfessionalsDAL from "@/server/DAL/ExternalProfessionalsDAL"
 import { withAuth } from '@/middlewares/withAuth'
-import { saveFile } from '@/server/files'
+
 
 export const PUT = withAuth(async (req, { params }) => {
     const { id } = params
@@ -10,7 +10,8 @@ export const PUT = withAuth(async (req, { params }) => {
         const formData = await req.formData()
         const name = formData.get('name')
         const link = formData.get('link')
-        const file = formData.get('picture')
+        const pictureUrl = formData.get('pictureUrl')
+        const existingPictureUrl = formData.get('existingPictureUrl')
   
         const validatedName = name?.trim() ?? ""
         const validatedLink = link?.trim() ?? "" 
@@ -25,16 +26,11 @@ export const PUT = withAuth(async (req, { params }) => {
             return NextResponse.json({ msg: "Lien invalide" }, { status: 400 }) 
         }
   
-        let picturePath = null
-        if (file) {
-          picturePath = await saveFile(file)
-        }
-  
         const result = await ExternalProfessionalsDAL.updateExternalPro({
             body: {
                 name: validatedName,
                 link: validatedLink,
-                picture: picturePath
+                pictureUrl: pictureUrl || existingPictureUrl
             }
         }, id) 
   

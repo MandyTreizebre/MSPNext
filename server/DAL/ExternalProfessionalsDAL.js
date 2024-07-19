@@ -25,21 +25,21 @@ class ExternalProfessionalsDAL {
     }
 
     static async updateExternalPro(data, id) {
-        const { name, link, picture } = data.body 
+        const { name, link, pictureUrl } = data.body 
 
-        let query = 'UPDATE external_professionals SET name = ?, link = ?' 
-        let queryParams = [name, link] 
+        let sqlRequest = 'UPDATE external_professionals SET name = ?, link = ?' 
+        let params = [name, link] 
 
-        if (picture) {
-            query += ', picture = ?' 
-            queryParams.push(picture) 
+        if (pictureUrl) {
+            sqlRequest += ', picture = ?' 
+            params.push(pictureUrl) 
         }
 
-        query += ' WHERE id = ?' 
-        queryParams.push(id) 
+        sqlRequest += ' WHERE id = ?' 
+        params.push(id) 
 
         try {
-            const result = await query(query, queryParams) 
+            const result = await query(sqlRequest, params) 
             return result 
         } catch (err) {
             throw err 

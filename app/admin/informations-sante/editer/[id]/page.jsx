@@ -12,8 +12,8 @@ const EditInformations = () => {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [link, setLink] = useState("")
-    const [image, setImage] = useState(null)
-    const [existingImage, setExistingImage] = useState(null)
+    const [pictureUrl, setPictureUrl] = useState(null)
+    const [existingPictureUrl, setExistingPictureUrl] = useState(null)
 
     const [categories, setCategories] = useState([])
     const [selectedCategory, setSelectedCategory] = useState("")
@@ -26,14 +26,14 @@ const EditInformations = () => {
     }  
 
     useEffect(() => {
-        axios.get(`/api/informations/${id}`)
+        axios.get(`/api/informations/by-id/${id}`)
         .then((res) => {
             if(res.data && res.data.length > 0) {
                 const data = res.data[0] 
                 setTitle(data.title) 
                 setDescription(data.description) 
                 setLink(data.link) 
-                setExistingImage(data.image) 
+                setExistingPictureUrl(data.picture)
                 setSelectedCategory(data.category)       
             }
         })
@@ -87,10 +87,10 @@ const EditInformations = () => {
         formData.append('link', link || "") 
         formData.append('category', selectedCategory || "") 
 
-        if (image) {
-            formData.append('image', image) 
-        } else if (existingImage) {
-            formData.append('existingImage', existingImage) 
+        if (pictureUrl) {
+            formData.append('pictureUrl', pictureUrl);
+        } else {
+            formData.append('existingPictureUrl', existingPictureUrl)
         }
 
         editInformation(formData, token) 
@@ -104,15 +104,13 @@ const EditInformations = () => {
                 <EditHealthInformationsForm
                     title={title}
                     description={description}
-                    image={image}
-                    existingImage={existingImage}
                     link={link}
                     categoriesList={categories}
                     selectedCategory={selectedCategory}
 
                     onChangeTitle={setTitle}
                     onChangeDescription={setDescription}
-                    onChangePicture={setImage}
+                    onChangePicture={setPictureUrl}
                     onChangeLink={setLink}
                     onChangeCategory={setSelectedCategory}
                     handleSubmit={handleSubmit}

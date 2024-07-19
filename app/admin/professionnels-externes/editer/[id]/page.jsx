@@ -12,7 +12,8 @@ const EditExternalPro = () => {
     const { id } = useParams()
     const [name, setName] = useState("") 
     const [link, setLink] = useState("") 
-    const [picture, setPicture] = useState(null) 
+    const [pictureUrl, setPictureUrl] = useState(null)
+    const [existingPictureUrl, setExistingPictureUrl] = useState(null)
     const [error, setError] = useState(null) 
     const [openEditExtProModal, setOpenEditExtProModal] = useState(false) 
 
@@ -26,7 +27,8 @@ const EditExternalPro = () => {
                 if (res.data && res.data.length > 0) {
                     const data = res.data[0] 
                     setName(data.name) 
-                    setLink(data.link) 
+                    setLink(data.link)
+                    setExistingPictureUrl(data.picture)
                 }
             })
             .catch((err) => {
@@ -70,9 +72,12 @@ const EditExternalPro = () => {
         const formData = new FormData() 
         formData.append('name', name) 
         formData.append('link', link) 
-        if (picture) {
-            formData.append('picture', picture) 
+        if (pictureUrl) {
+            formData.append('pictureUrl', pictureUrl);
+        } else {
+            formData.append('existingPictureUrl', existingPictureUrl)
         }
+        
         editExternalPro(formData, token) 
     } 
 
@@ -84,7 +89,7 @@ const EditExternalPro = () => {
                 link={link}
                 onChangeName={setName}
                 onChangeLink={setLink}
-                onChangePicture={setPicture}
+                onChangePicture={setPictureUrl}
                 handleSubmit={handleSubmit}
             />
             {error && <div className="error-message">{error}</div>}

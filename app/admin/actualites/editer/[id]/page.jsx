@@ -11,9 +11,9 @@ const EditNews = () => {
     const { id } = useParams() 
     const [title, setTitle] = useState("") 
     const [details, setDetails] = useState("") 
-    const [picture, setPicture] = useState(null) 
+    const [pictureUrl, setPictureUrl] = useState(null) 
+    const [existingPictureUrl, setExistingPictureUrl] = useState(null)
     const [externalLink, setExternalLink] = useState("") 
-    const [existingImage, setExistingImage] = useState("") 
     const [error, setError] = useState(null) 
     const [openEditNewModal, setOpenEditNewModal] = useState(false) 
 
@@ -29,7 +29,7 @@ const EditNews = () => {
                     setTitle(data.title) 
                     setDetails(data.details) 
                     setExternalLink(data.external_link) 
-                    setExistingImage(data.image) 
+                    setExistingPictureUrl(data.picture)
                 }
             })
             .catch((err) => {
@@ -68,10 +68,11 @@ const EditNews = () => {
         formData.append('title', title) 
         formData.append('details', details) 
         formData.append('external_link', externalLink) 
-        if (picture) {
-            formData.append('picture', picture) 
-        } else if (existingImage) {
-            formData.append('existingImage', existingImage) 
+
+        if (pictureUrl) {
+            formData.append('pictureUrl', pictureUrl);
+        } else {
+            formData.append('existingPictureUrl', existingPictureUrl)
         }
 
         editNew(formData, token) 
@@ -87,7 +88,7 @@ const EditNews = () => {
                 onChangeTitle={setTitle}
                 onChangeDetails={setDetails}
                 onChangeExternalLink={setExternalLink}
-                onChangePicture={setPicture}
+                onChangePicture={setPictureUrl}
                 handleSubmit={handleSubmit}
             />
             {error && <div className="error-message">{error}</div>}

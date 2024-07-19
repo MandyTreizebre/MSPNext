@@ -1,7 +1,6 @@
 import {query} from "@/server/db"
 
 class HealthInformationsDAL {   
-    
     static async getCategories(){
         try {
             const rows = await query('SELECT id, name, picture FROM category_informations')
@@ -63,24 +62,21 @@ class HealthInformationsDAL {
     }
 
     static async updateInformation(data, id) {
-        const { title, description, link, category, picturePath } = data.body 
+        const { title, description, link, category, pictureUrl } = data.body 
 
-        let query = 'UPDATE health_informations SET title= ?, description= ?, link= ?, category= ?' 
-        let queryParams = [title, description, link, category] 
+        let sqlRequest = 'UPDATE health_informations SET title= ?, description= ?, link= ?, category= ?' 
+        let params = [title, description, link, category] 
 
-        if (picturePath) {
-            query += ', image= ?' 
-            queryParams.push(picturePath) 
-        } else if (data.body.existingImage) {
-            query += ', image= ?' 
-            queryParams.push(data.body.existingImage) 
+        if (pictureUrl) {
+            sqlRequest += ', picture= ?' 
+            params.push(pictureUrl) 
         }
 
-        query += ' WHERE id= ?' 
-        queryParams.push(id) 
+        sqlRequest += ' WHERE id= ?' 
+        params.push(id) 
 
         try {
-            const result = await query(query, queryParams)
+            const result = await query(sqlRequest, params)
             return result 
         } catch (err) {
             console.error('DAL error:', err)

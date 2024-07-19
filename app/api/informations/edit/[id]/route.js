@@ -1,7 +1,6 @@
 import HealthInformationsDAL from "@/server/DAL/HealthInformationsDAL"
 import { NextResponse } from "next/server"
 import { withAuth } from '@/middlewares/withAuth'
-import { saveFile } from '@/server/files'
 
 export const PUT = withAuth(async (req, { params }) => {
     const { id } = params
@@ -9,10 +8,10 @@ export const PUT = withAuth(async (req, { params }) => {
     const formData = await req.formData()
     const title = formData.get('title')
     const description = formData.get('description')
-    const file = formData.get('image')
+    const pictureUrl = formData.get('pictureUrl')
+    const existingPictureUrl = formData.get('existingPictureUrl')
     const link = formData.get('link')
     const category = formData.get('category')
-    const existingImage = formData.get('existingImage')
   
     if (!/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'’`:-]{1,100}$/.test(title)) {
         console.error('Titre invalide')
@@ -29,20 +28,14 @@ export const PUT = withAuth(async (req, { params }) => {
         return NextResponse.json({ msg: "Catégorie invalide" }, { status: 400 })
     }
   
-    let picturePath = null
-    if (file) {
-        picturePath = await saveFile(file)
-    }
-  
     try {
         const result = await HealthInformationsDAL.updateInformation({
             body: {
                 title: title,
                 description: description,
-                picturePath: picturePath,
+                pictureUrl: pictureUrl || existingPictureUrl,
                 link: link,
                 category: category,
-                existingImage: existingImage
             }
         }, id)
   

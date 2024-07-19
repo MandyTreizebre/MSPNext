@@ -45,25 +45,21 @@ class NewsDAL {
     }
 
     static async updateNew(data, id) {
-        const { title, details, externalLink, picturePath } = data.body
+        const { title, details, externalLink, pictureUrl } = data.body
 
-        let query = 'UPDATE news SET title= ?, details= ?, external_link= ?'
-        let queryParams = [title, details, externalLink]
+        let sqlRequest = 'UPDATE news SET title= ?, details= ?, external_link= ?'
+        let params = [title, details, externalLink]
         
-        if (picturePath) {
-            query += ', image= ?' 
-            queryParams.push(picturePath) 
-        } else if (data.body.existingImage) {
-            query += ', image= ?' 
-            queryParams.push(data.body.existingImage) 
+        if (pictureUrl) {
+            sqlRequest += ', picture= ?' 
+            params.push(pictureUrl) 
         }
 
-        query += ' WHERE id= ?' 
-        queryParams.push(id) 
+        sqlRequest += ' WHERE id= ?' 
+        params.push(id) 
 
         try {
-            const result = await query(query, queryParams)
-            console.log('Query Result:', result)
+            const result = await query(sqlRequest, params)
             return result 
         } catch (err) {
             console.error('DAL error:', err)
