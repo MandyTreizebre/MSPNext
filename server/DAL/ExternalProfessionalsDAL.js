@@ -46,8 +46,6 @@ class ExternalProfessionalsDAL {
         }
     }
     
-
-
     static async getExternalProByID(id){
         try {
             const rows = await query('SELECT id, name, picture, link FROM external_professionals WHERE id = ?',[id])
@@ -65,16 +63,6 @@ class ExternalProfessionalsDAL {
             throw err
         }
     }
-
-    static async getExternalProPicture(id){
-        try {
-            const rows = await query('SELECT picture FROM external_professionals WHERE id= ?', [id])
-            return rows
-        } catch (err) {
-            throw err
-        }
-    }
-
 }
 
 module.exports = ExternalProfessionalsDAL

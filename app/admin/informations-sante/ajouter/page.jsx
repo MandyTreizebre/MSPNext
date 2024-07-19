@@ -7,6 +7,7 @@ import AddHealthInformationsForm from "@/components/Admin/Forms/AddHealthInforma
 import Modal from "@/components/Modal";
 
 export default function AddInformations() {
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [link, setLink] = useState("");
@@ -19,6 +20,7 @@ export default function AddInformations() {
     const handleCloseModal = () => {
         setOpenAddInformationModal(false);
     };
+    
     useEffect(() => {
         axios.get('/api/categories-informations')
             .then((res) => {
