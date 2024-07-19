@@ -1,7 +1,6 @@
 'use client'
 import {useState, useEffect} from "react"
 import Link from "next/link"
-import { config } from "@/config"
 import axios from 'axios'
 import "./categories-informations.css"
 
@@ -32,7 +31,7 @@ export default function CategoriesInformations() {
                                 href={`/informations-sante/${item.id}`}
                                 aria-label="Visiter la page des informations santé"
                             >
-                                <img src={config.pict_url+item.picture} className="category-picture" alt={item.name}/>
+                                <img src={item.picture} className="category-picture" alt={item.name}/>
                             </Link>
                             <h3>{item.name}</h3>
                     </section>
