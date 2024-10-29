@@ -17,7 +17,7 @@ const Welcome = () => {
             </div>
 
             <section className="section-presentation">
-                <h1>Bienvenue à la maison de santé de Varennes-Sur-Allier</h1>
+                <h1>Bienvenue à la maison de santé de Varennes-Sur-Allier - TEST MODIF SYNCHRO VERCEL</h1>
                 <p>
                     Au-delà de la structure immobilière, une maison de santé est avant tout une envie de 32 professionnels de santé de travailler ensemble. Cela s&apos;est traduit par la création d&apos;une association afin de s&apos;organiser autour d&apos;un projet de santé.
                     Ce projet a été présenté devant plusieurs instances, ARS, CPAM, Ordres des médecins, kinés, infirmiers.. afin d&apos;être labellisé pour obtenir le nom déposé de « Maison de Santé Pluriprofessionnelle ».
