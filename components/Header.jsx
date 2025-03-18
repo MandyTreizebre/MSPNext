@@ -81,7 +81,7 @@ const Header = () => {
                             aria-label="Parcourir les spécialisations"
                             className={pathname === "/#specializations" ? "active" : ""}
                     >
-                        Rendez-vous
+                        Offre de soins
                     </Link>
 
                     <Link href="/informations-sante">Informations santé</Link>
