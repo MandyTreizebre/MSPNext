@@ -26,7 +26,7 @@ const News = () => {
 
     return (
         <section className='container-carousel'>
-            <h2>Les actualités santé</h2>
+            <h2>Les actualités santé locales</h2>
             {loading ? (
                 <p>Chargement des actualités</p>
             ) : (
