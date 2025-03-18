@@ -84,8 +84,6 @@ const Header = () => {
                         Rendez-vous
                     </Link>
 
-                    <Link href="/decouvrir-notre-msp">Notre MSP</Link>
-
                     <Link href="/informations-sante">Informations santé</Link>
 
                     <Link href="/contact">Contact</Link>
