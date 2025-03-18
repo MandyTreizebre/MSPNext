@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "@/styles/admin-forms.css";
 
-const AddSchedulesForPharmaciesOnCallForm = (props) => {
+const AddSchedulesForProfessionalsOnCallForm = (props) => {
     const [errors, setErrors] = useState({
         name: "",
         address: "",
@@ -11,6 +11,14 @@ const AddSchedulesForPharmaciesOnCallForm = (props) => {
     const handleInputChange = (setter) => (e) => {
         setter(e.currentTarget.value);
     };
+
+       // Fonction pour gérer les changements de valeur des champs numériques
+       const handleNumberInputChange = (setter) => (e) => {
+        const value = e.currentTarget.value 
+        const numberValue = parseInt(value, 10) 
+        // Définir la valeur numérique analysée ou la valeur d'origine si ce n'est pas un nombre
+        setter(isNaN(numberValue) ? value : numberValue) 
+    } 
 
     const validateForm = () => {
         let errorsForm = { ...errors };
@@ -43,20 +51,6 @@ const AddSchedulesForPharmaciesOnCallForm = (props) => {
                     }
                 }}
             >
-                <label htmlFor="pharmacy">Pharmacie</label>
-                <div>
-                    <select
-                        name="pharmacy"
-                        value={props.selectedPharmacy}
-                        onChange={(e) => props.onChangePharmacy(e.target.value)}
-                    >
-                        <option value="">Sélectionnez une pharmacie</option>
-                        {props.pharmacies.map(pharmacy => (
-                            <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}</option>
-                        ))}
-                    </select>
-                </div>
-                {errors.pharmacy && <p className="error-message">{errors.pharmacy}</p>}
 
                 <label htmlFor="date">Date</label>
                 <input
@@ -94,4 +88,4 @@ const AddSchedulesForPharmaciesOnCallForm = (props) => {
     );
 };
 
-export default AddSchedulesForPharmaciesOnCallForm;
+export default AddSchedulesForProfessionalsOnCallForm

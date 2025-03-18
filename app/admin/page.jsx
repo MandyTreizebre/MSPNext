@@ -127,7 +127,7 @@ export default function Admin() {
                 <section className='admin-panel'>
                     {admin.infos && <h1>Vous êtes connecté(e) en tant que {admin.infos.firstname}.</h1>}
 
-                        <Link href="/admin/gardes-pharmacies">Page des pharmacies de garde </Link>
+                        <Link href="/admin/gardes">Page des pharmacies de garde </Link>
 
                     <div className='menu-admin-panel'>
                         <div className='card-menu' onClick={() => scrollToSection('professionals')}>

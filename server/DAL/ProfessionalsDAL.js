@@ -78,7 +78,6 @@ class ProfessionalsDAL {
             throw err
         }
     }
-
 }
     
 module.exports = ProfessionalsDAL

@@ -4,7 +4,6 @@ import axios from 'axios'
 import "./gardes-urgences.css"
 import Clock from "@/components/Clock"
 import PharmaciesForGuards from "@/components/componentsGuards/PharmaciesForGuards"
-import DentistsForGuards from "@/components/componentsGuards/DentistsForGuards"
 import DoctorsForGuards from "@/components/componentsGuards/DoctorsForGuards"
 import PharmaciesOnCall from "@/components/componentsGuards/PharmaciesOnCall"
 
@@ -120,7 +119,6 @@ export default function ProfessionalsOnCall() {
                 
                 {pharmacies.length > 0 && <PharmaciesForGuards pharmacies={pharmacies} />}
 
-                {dentists.length > 0 && <DentistsForGuards dentists={dentists} />}
 
                 {doctors.length > 0 && <DoctorsForGuards doctors={doctors} />}
                 
