@@ -21,7 +21,7 @@ const ExternalPros = () => {
     return (
 
         <div className="section-external-pros">
-            <h2>Les autres Professionnels de santé du territoire</h2>
+            <h2>Nos partenaires</h2>
             <section className="container-external-pros">
                 {externalPros.length > 0 && (
                     externalPros.map((pro, index) => {
