@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import adminReducer from "./adminSlice"
 import { PersistGate } from 'redux-persist/integration/react'
-import darkModeReducer from "./darkModeSlice"
+
 
 const adminPersistConfig = {
     key: 'admin',
@@ -15,7 +15,6 @@ const persistedAdminReducer = persistReducer(adminPersistConfig, adminReducer)
 const store = configureStore({
     reducer: {
         admin: persistedAdminReducer,
-        darkMode: darkModeReducer
     }
 })
 

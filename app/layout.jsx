@@ -7,7 +7,6 @@ import { Provider } from "react-redux"
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor } from '@/slices/store'
 import { useRef } from "react" 
-import DarkMode from "@/components/DarkMode" 
 
 export default function RootLayout({ children }) {
   const storeRef = useRef()
@@ -19,7 +18,6 @@ export default function RootLayout({ children }) {
       <body>
         <Provider store={storeRef.current}>
           <PersistGate loading={null} persistor={persistor}>
-            <DarkMode />
             <Header />
             <main>
               {children}
