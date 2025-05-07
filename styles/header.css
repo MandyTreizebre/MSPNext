@@ -114,13 +114,23 @@ header {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   list-style: none;
   margin-top: 5px;
-  border-radius: 5px;
   min-width: max-content;
   opacity: 0; 
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none; 
   z-index: 1000; 
+  border-left: 3px solid var(--green-color);
+}
+
+/* Flèche à côté de "Offre de soins" pour indiquer un menu déroulant à l'utilisateur */
+.dropdown-icon {
+  margin-left: 8px;
+  transition: transform 0.8s ease;
+}
+
+.dropdown-icon.rotate {
+  transform: rotate(180deg);
 }
 
 /* Affichage du menu lorsqu'il est ouvert */
@@ -137,8 +147,14 @@ header {
   white-space: nowrap;
 }
 
+/* Changement du fond des liens du menu déroulant */
 .dropdown-menu li:hover {
-  background-color: rgba(24, 89, 89, 0.1);
+  background-color: var(--green-color);
+}
+
+/* Changement de la couleur des liens dans le menu déroulant au survol */
+.dropdown-menu li:hover a {
+  color: white;
 }
 
 .dropdown-menu li a {

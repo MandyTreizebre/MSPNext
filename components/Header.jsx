@@ -1,4 +1,5 @@
 'use client'
+import { useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {useState, useEffect } from 'react' 
@@ -9,7 +10,7 @@ const token = Cookies.get('token')
 import { useSelector, useDispatch } from 'react-redux' 
 import { selectAdmin, logoutAdmin } from '../slices/adminSlice' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
-import { faGear, faBars } from '@fortawesome/free-solid-svg-icons' 
+import { faGear, faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons' 
 import Logo from '../public/images/logo.png'
 import "@/styles/header.css" 
 
@@ -20,6 +21,21 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false) // État pour le menu déroulant "Offre de soins"
     const [specializations, setSpecializations] = useState([]) // Stocke les spécialisations récupérées depuis l'API
     const router = useRouter() // Permet de gérer la navigation programmatique (ex: redirection après déconnexion)
+    const dropdownRef = useRef(null) // Référence du menu déroulant
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false)
+            }
+        }
+
+        document.addEventListener('click', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside)
+        }
+    }, [])
 
     /* Récupération des spécialisations pour le menu déroulant */
     useEffect(() => {
@@ -86,9 +102,9 @@ const Header = () => {
                 <nav className={`navigation ${navIsOpen ? "is-open" : ""}`}>
                     <Link href="/" className="link-nav">Accueil</Link>
 
-                    <div className='dropdown'>
+                    <div className='dropdown' ref={dropdownRef}>
                         <button className="dropdown-button" onClick={toggleDropdown}>
-                            <p>Offre de soins</p>
+                            <p>Offre de soins <FontAwesomeIcon icon={faChevronDown} className={`dropdown-icon ${isOpen ? 'rotate' : ''}`} /></p>
                         </button>
 
                         <ul className={`dropdown-menu ${isOpen ? "open" : ""}`}>
@@ -112,7 +128,7 @@ const Header = () => {
 
                     <Link href="/gardes-urgences" className="link-nav urgent-link">Urgences et gardes</Link>
 
-                    {isLogged ? (
+                    {/*{isLogged ? (
                         <>
                         <Link href="/admin">Portail Admin</Link>
                             <button onClick={handleLogout} className='logout-button'>Se déconnecter</button>
@@ -124,11 +140,12 @@ const Header = () => {
                         >
                             <FontAwesomeIcon icon={faGear} title="Administration" />
                         </Link>
-                    )}
+                    )}*/}
                 </nav>
             </section>
         </header>
     ) 
 } 
+
 
 export default Header 
